@@ -237,4 +237,4 @@ export const states = [{
         "name": "Wyoming",
         "abbreviation": "WY"
     }
-];
+]
