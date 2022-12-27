@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import PageError from './pages/PageError'
 import { Provider } from 'react-redux'
 import { store } from './redux/redux'
+import './App.css'
 const App = () => {
   return (
     <Provider store={store}>

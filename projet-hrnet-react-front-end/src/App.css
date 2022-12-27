@@ -1,0 +1,19 @@
+* {
+    font-family: 'Lato', sans-serif, Arial, Helvetica, sans-serif;
+    font-weight: 400;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 1002px;
+    /* border: 2px solid red; */
+}
+
+@media screen and (min-width: 993px) and (max-width: 2000px) {
+    body {
+        background-size: 110% 110%;
+    }
+}

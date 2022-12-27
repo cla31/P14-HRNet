@@ -231,112 +231,147 @@ const Form = () => {
   }
 
   return (
-    <div>
-      <div className="title">
+    <>
+      {/* <div className="title">
         <h1>HRnet</h1>
+      </div> */}
+      <div className="link-table">
+        <Link to="/CurrentEmployee">-View Current Employees-</Link>
       </div>
-      <div className="container">
-        <Link to="/CurrentEmployee">View Current Employees</Link>
+      <div className="title-form">
         <h2>Create Employee</h2>
-        <form>
-          <label htmlFor="first-name">First Name</label>
+      </div>
+      <form action="#" id="create-employee" autoComplete="off">
+        <div className="input-fn">
           <input
             type="text"
             id="first-name"
             name="first"
+            placeholder="First Name"
             onChange={(e) => setFirstname(e.target.value)}
             required="required"
           />
-          {errorMessageFirst && (
-            <div className="error-message">{errorMessageFirst}</div>
-          )}
-
-          <label htmlFor="last-name">Last Name</label>
+        </div>
+        {errorMessageFirst && (
+          <div className="error-message">{errorMessageFirst}</div>
+        )}
+        <div className="input-ln">
           <input
             type="text"
             id="last-name"
             name="last"
+            placeholder="Last Name"
             onChange={(e) => setLastname(e.target.value)}
             required="required"
           />
-          {errorMessageLast && (
-            <div className="error-message">{errorMessageLast}</div>
-          )}
-
-          <label htmlFor="date-of-birth">Date of Birth</label>
-          <DatePicker
-            selected={birthDate}
-            onChange={(date) => setBirthDate(date)}
-            dateFormat="dd/MM/yyyy"
-            required="required"
-          />
+        </div>
+        {errorMessageLast && (
+          <div className="error-message">{errorMessageLast}</div>
+        )}
+        <div className="dates">
+          <div className="datepicker-birth">
+            <label className="label-date-birth" htmlFor="date-of-birth">
+              Date of Birth
+            </label>
+            {/* <input
+              id="date-of-birth"
+              type="text"
+              placeholder="Date of Birth"
+              onChange={handleChangeTest}
+            /> */}
+            <DatePicker
+              id="date-of-birth"
+              selected={birthDate}
+              placeholderText="Start Date"
+              onChange={(date) => setBirthDate(date)}
+              dateFormat="dd/MM/yyyy"
+              required="required"
+            />
+          </div>
           {errorMessageBirthDate && (
             <div className="error-message">{errorMessageBirthDate}</div>
           )}
-
-          <label htmlFor="start-date">Start Date</label>
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            dateFormat="dd/MM/yyyy"
-            required="required"
-          />
+          <div className="datepicker-start">
+            <label className="label-date-start" htmlFor="start-date">
+              Start Date
+            </label>
+            <DatePicker
+              id="start-date"
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              dateFormat="dd/MM/yyyy"
+              required="required"
+              placeholder="Start Date"
+            />
+          </div>
           {errorMessageStartDate && (
             <div className="error-message">{errorMessageStartDate}</div>
           )}
-
-          <fieldset className="address">
+        </div>
+        <fieldset className="address">
+          <div className="legend-address">
             <legend>Address</legend>
-
-            <label htmlFor="street">Street</label>
+          </div>
+          <div className="input-street">
             <input
               id="street"
               type="text"
+              placeholder="Street"
               onChange={(e) => setStreet(e.target.value)}
               required="required"
             />
-            {errorMessageStreet && (
-              <div className="error-message">{errorMessageStreet}</div>
-            )}
-
-            <label htmlFor="city">City</label>
+          </div>
+          {errorMessageStreet && (
+            <div className="error-message">{errorMessageStreet}</div>
+          )}
+          <div className="input-city">
             <input
               id="city"
               type="text"
+              placeholder="City"
               onChange={(e) => setCity(e.target.value)}
               required="required"
             />
-            {errorMessageCity && (
-              <div className="error-message">{errorMessageCity}</div>
-            )}
-
-            <label htmlFor="state">State</label>
-            <Dropdown datas={statesName} listenOption={handleChangeState} />
-            {errorMessageSelectionState && (
-              <div className="error-message">{errorMessageSelectionState}</div>
-            )}
-
-            <label htmlFor="zip-code">Zip Code</label>
-            <input
-              id="zip-code"
-              type="number"
-              onChange={(e) => setZipcode(e.target.value)}
-              required="required"
-            />
-            {errorMessageZipCode && (
-              <div className="error-message">{errorMessageZipCode}</div>
-            )}
-          </fieldset>
-
-          <label htmlFor="department">Department</label>
-          <Dropdown datas={departments} listenOption={handleChangeDepartment} />
-          {errorMessageSelectionDepartment && (
-            <div className="error-message">
-              {errorMessageSelectionDepartment}
-            </div>
+          </div>
+          {errorMessageCity && (
+            <div className="error-message">{errorMessageCity}</div>
           )}
-        </form>
+          <div className="state-zipcode">
+            <div className="select-state">
+              <Dropdown
+                className="state"
+                datas={statesName}
+                listenOption={handleChangeState}
+              />
+              {errorMessageSelectionState && (
+                <div className="error-message">
+                  {errorMessageSelectionState}
+                </div>
+              )}
+            </div>
 
+            <div className="zipcode">
+              <input
+                id="zip-code"
+                type="number"
+                placeholder="Zipcode"
+                onChange={(e) => setZipcode(e.target.value)}
+                required="required"
+              />
+              {errorMessageZipCode && (
+                <div className="error-message">{errorMessageZipCode}</div>
+              )}
+            </div>
+          </div>
+        </fieldset>
+        <div className="select-department">
+          <Dropdown datas={departments} listenOption={handleChangeDepartment} />
+        </div>
+        {errorMessageSelectionDepartment && (
+          <div className="error-message">{errorMessageSelectionDepartment}</div>
+        )}
+      </form>
+      <div className="save-button">
         <button type="submit" onClick={save}>
           Save
         </button>
@@ -344,7 +379,7 @@ const Form = () => {
       {showModal && (
         <Modale message={'Employee created'} closeModal={closeModal} />
       )}
-    </div>
+    </>
   )
 }
 

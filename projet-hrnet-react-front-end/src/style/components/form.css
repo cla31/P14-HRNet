@@ -1,3 +1,440 @@
 .error-message {
     color: red;
 }
+
+.link-table {
+    display: flex;
+    justify-content: center;
+}
+
+.link-table a {
+    color: white;
+    font-weight: 300;
+    text-decoration: none;
+}
+
+.title-form {
+    display: flex;
+    justify-content: center;
+}
+
+input::placeholder {
+    /* padding-left: 10px; */
+    color: white;
+}
+
+.input-fn {
+    /* border: 2px solid green; */
+    display: flex;
+    justify-content: center;
+    height: 62px;
+    padding: 6px 0 6px 0;
+}
+
+#first-name {
+    width: 310px;
+    border-radius: 40px;
+    border-color: transparent;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid transparent;
+    transition: 0.3s;
+    color: white;
+    padding-left: 20px;
+}
+
+#first-name:hover {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#first-name:focus {
+    outline: 0;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+    padding-left: 20px;
+}
+
+.input-ln {
+    /* border: 2px solid green; */
+    display: flex;
+    justify-content: center;
+    height: 62px;
+    padding: 6px 0 6px 0;
+}
+
+#last-name {
+    width: 310px;
+    border-radius: 40px;
+    border-color: transparent;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid transparent;
+    transition: 0.3s;
+    color: white;
+    padding-left: 20px;
+}
+
+#last-name:hover {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#last-name:focus {
+    outline: 0;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+    padding-left: 20px;
+}
+
+.dates {
+    /* border: 2px solid green; */
+    display: flex;
+    justify-content: center;
+    width: 310px;
+    padding: 6px 0 6px 0;
+    margin-left: 13px;
+}
+
+.datepicker-birth {
+    /* border: 2px solid green; */
+    height: 92px;
+    padding: 6px 0 6px 0;
+    margin-right: 6px;
+}
+
+.label-date-birth {
+    /* border: 2px solid red; */
+    display: block;
+    margin-left: 25px;
+    margin-bottom: 5px;
+}
+
+.datepicker-start {
+    /* border: 2px solid blue; */
+    height: 92px;
+    padding: 6px 0 6px 0;
+    margin-left: 6px;
+}
+
+.label-date-start {
+    /* border: 2px solid red; */
+    display: block;
+    margin-left: 25px;
+    margin-bottom: 5px;
+}
+
+#date-of-birth {
+    height: 50px;
+    width: 148px;
+    border-radius: 40px;
+    border-color: transparent;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid transparent;
+    transition: 0.3s;
+    color: white;
+    padding-left: 20px;
+}
+
+#date-of-birth:hover {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#date-of-birth:focus {
+    outline: 0;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+    padding-left: 20px;
+}
+
+#start-date {
+    height: 50px;
+    width: 148px;
+    border-radius: 40px;
+    border-color: transparent;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid transparent;
+    transition: 0.3s;
+    color: white;
+    padding-left: 20px;
+}
+
+#start-date:hover {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#start-date:focus {
+    outline: 0;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+    padding-left: 20px;
+}
+
+fieldset {
+    border: none;
+}
+
+.legend-address {
+    /* border: 2px solid green; */
+    display: flex;
+    justify-content: center;
+}
+
+.input-street {
+    /* border: 2px solid green; */
+    display: flex;
+    justify-content: center;
+    height: 62px;
+    width: 310px;
+    padding: 6px 0 6px 0;
+}
+
+#street {
+    width: 100%;
+    border-radius: 40px;
+    border-color: transparent;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid transparent;
+    transition: 0.3s;
+    color: white;
+    padding-left: 20px;
+}
+
+#street:hover {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#street:focus {
+    outline: 0;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+    padding-left: 20px;
+}
+
+.input-city {
+    /* border: 2px solid green; */
+    display: flex;
+    justify-content: center;
+    height: 62px;
+    padding: 6px 0 6px 0;
+}
+
+#city {
+    width: 100%;
+    border-radius: 40px;
+    border-color: transparent;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid transparent;
+    transition: 0.3s;
+    color: white;
+    padding-left: 20px;
+}
+
+#city:hover {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#city:focus {
+    outline: 0;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+    padding-left: 20px;
+}
+
+.state-zipcode {
+    display: flex;
+    /* border: 2px solid red; */
+    width: 310px;
+}
+
+.select-state {
+    width: 144px;
+    /* border: 2px solid purple; */
+    height: 50px;
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.zipcode {
+    /* border: 2px solid orangered; */
+    height: 50px;
+    margin-top: 6px;
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+#zip-code {
+    /* border: 2px solid pink; */
+    height: 50px;
+    margin-left: 6px;
+    width: 148px;
+    border-radius: 40px;
+    border-color: transparent;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid transparent;
+    transition: 0.3s;
+    color: white;
+    padding-left: 20px;
+}
+
+#zip-code:hover {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#zip-code:focus {
+    outline: 0;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.4);
+    color: white;
+    padding-left: 20px;
+}
+
+.select-department {
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: center;
+    height: 62px;
+    width: 310px;
+    padding: 6px 0 6px 0;
+    margin-left: 13px;
+}
+
+.save-button {
+    /* border: 2px solid green; */
+    display: flex;
+    justify-content: center;
+    padding: 6px 0 6px 0;
+}
+
+.save-button button {
+    height: 50px;
+    width: 150px;
+    background-color: white;
+    color: #001730;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    border: 0;
+}
+
+.save-button button:hover {
+    color: white;
+    background-color: #001730;
+}
+
+
+/* Media queries version */
+
+@media screen and (min-width: 769px) and (max-width: 992px) {
+    .dates {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .state-zipcode {
+        display: flex;
+        /* border: 2px solid red; */
+        flex-direction: column;
+    }
+    .datepicker-birth {
+        margin-right: 0px;
+    }
+    .datepicker-start {
+        margin-left: 0px;
+    }
+    #date-of-birth {
+        width: 100%;
+    }
+    #start-date {
+        width: 100%;
+        /* width: 362px; */
+    }
+    .zipcode {
+        width: 100%;
+        margin-left: 0px;
+        margin-top: 15px;
+        /* border: 2px solid green; */
+    }
+    #zip-code {
+        /* border: 2px solid pink; */
+        width: 100%;
+        margin-left: 0px;
+    }
+    .select-department {
+        /* border: 2px solid red; */
+        width: 94%;
+    }
+    .select-state {
+        width: 100%;
+    }
+}
+
+
+/* Media queries version MOBILE  */
+
+@media screen and (max-width: 768px) {
+    .dates {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 270px;
+    }
+    .state-zipcode {
+        display: flex;
+        /* border: 2px solid red; */
+        flex-direction: column;
+        width: 270px;
+    }
+    .datepicker-birth {
+        margin-right: 0px;
+    }
+    .datepicker-start {
+        margin-left: 0px;
+    }
+    #date-of-birth {
+        width: 100%;
+    }
+    #start-date {
+        width: 100%;
+        /* width: 362px; */
+    }
+    .zipcode {
+        width: 100%;
+        margin-left: 0px;
+        margin-top: 15px;
+        /* border: 2px solid green; */
+    }
+    #zip-code {
+        width: 100%;
+        margin-left: 0px;
+        /* border: 2px solid green; */
+    }
+    #first-name {
+        width: 270px;
+    }
+    #last-name {
+        width: 270px;
+    }
+    .input-street {
+        /* border: 2px solid green; */
+        width: 270px;
+    }
+    .select-department {
+        /* border: 2px solid red; */
+        width: 94%;
+    }
+    .select-state {
+        width: 100%;
+    }
+}
