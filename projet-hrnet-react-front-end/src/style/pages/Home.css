@@ -33,6 +33,7 @@
     margin: 5% 20% 24% 20%;
     height: 90%;
     z-index: 1;
+    position: relative;
 }
 
 .logo {

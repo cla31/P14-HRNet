@@ -379,6 +379,8 @@ const Form = () => {
       {showModal && (
         <Modale message={'Employee created'} closeModal={closeModal} />
       )}
+
+      {/* <Modale message={'Employee created!'} closeModal={closeModal} /> */}
     </>
   )
 }

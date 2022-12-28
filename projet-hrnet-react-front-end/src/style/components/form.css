@@ -1,5 +1,5 @@
 .error-message {
-    color: red;
+    color: brown;
 }
 
 .link-table {
@@ -334,7 +334,7 @@ fieldset {
 }
 
 
-/* Media queries version */
+/* Media queries version TABLETTE*/
 
 @media screen and (min-width: 769px) and (max-width: 992px) {
     .dates {
