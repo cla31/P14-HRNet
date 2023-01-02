@@ -5,24 +5,28 @@
     border-radius: 40px;
     border-color: transparent;
     background: rgba(255, 255, 255, 0.18);
-    color: white;
+    /* background: red; */
+    /* color: white; */
     border: 1px solid transparent;
+    /* border: 1px solid red; */
     transition: 0.3s;
-    color: white;
     padding-left: 10px;
     width: 100%;
+    cursor: pointer;
 }
 
 .dropdown-select:hover {
     background: transparent;
+    /* background: pink; */
     border-color: rgba(255, 255, 255, 0.4);
+    /* border-color: greenyellow; */
 }
 
 .dropdown-select:focus {
     outline: 0;
     background: transparent;
     border-color: rgba(255, 255, 255, 0.4);
-    color: white;
+    /* color: #56680f; */
     padding-left: 20px;
 }
 

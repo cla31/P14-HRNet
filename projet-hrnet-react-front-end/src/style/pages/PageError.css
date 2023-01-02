@@ -1,0 +1,68 @@
+.message-erreur {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+    height: 659px;
+    margin-left: 100px;
+    margin-bottom: 300px;
+}
+
+.message-erreur span {
+    font-size: 36px;
+    margin-top: 20px;
+}
+
+img {
+    width: 80%;
+    margin-top: 150px;
+}
+
+.message {
+    font-size: 18px;
+    margin-top: 100px;
+}
+
+.message-erreur span,
+.message {
+    color: var(--rouge);
+}
+
+@media (max-width:1370px) and (min-width:376px) {
+    .message-erreur {
+        margin-left: 0;
+        text-align: center;
+        width: 100%;
+        height: 348px;
+    }
+    .message-erreur h5 {
+        font-size: 150px;
+    }
+    .message-erreur span {
+        font-size: 18px;
+    }
+    .message {
+        font-size: 14px;
+        margin-top: 70px;
+    }
+}
+
+@media screen and (max-width:375px) {
+    .message-erreur {
+        margin-left: 0;
+        text-align: center;
+        width: 100%;
+        height: 430px;
+    }
+    .message-erreur h5 {
+        font-size: 96px;
+    }
+    .message-erreur span {
+        font-size: 18px;
+    }
+    .message {
+        font-size: 14px;
+        margin-top: 80px;
+    }
+}

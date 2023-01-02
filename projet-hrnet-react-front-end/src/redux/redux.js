@@ -1,4 +1,4 @@
-import { states } from "../datas/states";
+// import { states } from "../datas/states";
 
 const { configureStore } = require("@reduxjs/toolkit");
 const { createSlice } = require("@reduxjs/toolkit");
@@ -20,7 +20,7 @@ const tableSlice = createSlice({
     }],
     reducers: {
         addEployees: (state, action) => {
-            const acronymeState = states.find(obj => obj.name === action.payload.state).abbreviation
+            // const acronymeState = states.find(obj => obj.name === action.payload.state).abbreviation
             const newEmployee = {
                 firstName: action.payload.firstName,
                 lastName: action.payload.lastName,
@@ -29,7 +29,7 @@ const tableSlice = createSlice({
                 startDate: action.payload.startDate,
                 street: action.payload.street,
                 city: action.payload.city,
-                state: acronymeState,
+                state: action.payload.state,
                 zipcode: action.payload.zipcode
             }
             state.push(newEmployee)

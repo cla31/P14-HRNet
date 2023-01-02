@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux'
 import { addEployees } from '../redux/redux'
 import { Link } from 'react-router-dom'
 import '../style/components/form.css'
+import 'react-datepicker/dist/react-datepicker.css'
 
 const Form = () => {
   const dispatch = useDispatch()
@@ -30,8 +31,8 @@ const Form = () => {
 
   //gestion de l'état du formulaire
   const [showModal, setShowModal] = useState(false)
-  const [birthDate, setBirthDate] = useState(new Date())
-  const [startDate, setStartDate] = useState(new Date())
+  const [birthDate, setBirthDate] = useState('')
+  const [startDate, setStartDate] = useState('')
   const [firstname, setFirstname] = useState('')
   const [department, setDepartment] = useState('')
   const [lastname, setLastname] = useState('')
@@ -83,10 +84,12 @@ const Form = () => {
   }
 
   const checkBirthDate = (value) => {
-    // console.log("valeur de la date",value)
+    console.log('valeur de la date', value)
+    let dateInput = new Date(value)
+    let timestampInput = dateInput.getTime()
     let dateNow = Date.now()
-    // console.log("valeur de date now()", dateNow)
-    if (value < dateNow) {
+    console.log('valeur de date now()', dateNow)
+    if (timestampInput < dateNow) {
       setErrorMessageBirthDate('')
       return true
     } else {
@@ -175,31 +178,30 @@ const Form = () => {
   const newEmployeeDatas = {
     firstName: firstname,
     lastName: lastname,
-    birthDate: birthDate.toLocaleDateString('fr-FR', options),
+    birthDate: birthDate,
     department: department,
-    startDate: startDate.toLocaleDateString('fr-FR', options),
+    startDate: startDate,
     street: street,
     city: city,
     state: state,
     zipcode: zipcode,
   }
-  // console.log("new employee datas",newEmployeeDatas);
-
-  // const save= (e) => {
-  //     e.preventDefault();
-  //     console.log("new employee datas",newEmployeeDatas);
-  //     dispatch(addEployees(newEmployeeDatas))
-  //     setShowModal(true);
-  // }
 
   const save = (e) => {
     e.preventDefault()
     // console.log("new employee datas",newEmployeeDatas.firstName);
     // console.log("new employee datas",newEmployeeDatas.lastName);
+    const birthDateFormated = birthDate.toLocaleDateString('fr-FR', options)
+    // console.log('Birthdate in save function', newEmployeeDatas.birthDate)
+    // console.log('Date formatée?????', birthDateFormated)
+    newEmployeeDatas.birthDate = birthDateFormated
+    const startDateFormated = startDate.toLocaleDateString('fr-FR', options)
+    newEmployeeDatas.startDate = startDateFormated
+
     checkFirst(newEmployeeDatas.firstName)
     checkLast(newEmployeeDatas.lastName)
-    checkBirthDate(birthDate)
-    checkStartDate(startDate)
+    checkBirthDate(birthDate.toLocaleDateString('fr-FR', options))
+    checkStartDate(startDate.toLocaleDateString('fr-FR', options))
     validateSelectionState(newEmployeeDatas.state, states)
     validateSelectionDepartment(newEmployeeDatas.department, departments)
     checkCity(newEmployeeDatas.city)
@@ -208,15 +210,24 @@ const Form = () => {
     if (
       newEmployeeDatas.firstName &&
       checkLast(newEmployeeDatas.lastName) &&
-      checkBirthDate(birthDate) &&
-      checkStartDate(startDate) &&
+      checkBirthDate(birthDate.toLocaleDateString('fr-FR', options)) &&
+      checkStartDate(startDate.toLocaleDateString('fr-FR', options)) &&
       validateSelectionState(newEmployeeDatas.state, states) &&
       validateSelectionDepartment(newEmployeeDatas.department, departments) &&
       checkCity(newEmployeeDatas.city) &&
       checkStreet(newEmployeeDatas.street) &&
       checkZipCode(newEmployeeDatas.zipcode) === true
-    )
-      dispatch(addEployees(newEmployeeDatas)) && setShowModal(true)
+    ) {
+      // console.log('New Employee State1', newEmployeeDatas.state)
+      const acronymeState = states.find(
+        (obj) => obj.name === newEmployeeDatas.state
+      ).abbreviation
+      // console.log('Acronyme State', acronymeState)
+      newEmployeeDatas.state = acronymeState
+      // console.log('New Employee State2', newEmployeeDatas.state)
+      if (newEmployeeDatas.state === acronymeState)
+        dispatch(addEployees(newEmployeeDatas)) && setShowModal(true)
+    }
   }
 
   const handleChangeDepartment = (event) => {
@@ -228,6 +239,13 @@ const Form = () => {
   const handleChangeState = (event) => {
     const selectedValue = event.target.value
     setState(selectedValue)
+  }
+
+  const handleChangeBirthDate = (date) => {
+    return setBirthDate(date)
+  }
+  const handleChangeStartDate = (date) => {
+    return setStartDate(date)
   }
 
   return (
@@ -270,20 +288,24 @@ const Form = () => {
         )}
         <div className="dates">
           <div className="datepicker-birth">
-            <label className="label-date-birth" htmlFor="date-of-birth">
+            {/* <label className="label-date-birth" htmlFor="date-of-birth">
               Date of Birth
-            </label>
-            {/* <input
+            </label> */}
+            {/* <DatePicker
               id="date-of-birth"
-              type="text"
-              placeholder="Date of Birth"
-              onChange={handleChangeTest}
-            /> */}
-            <DatePicker
-              id="date-of-birth"
+              allowInput={true}
               selected={birthDate}
               placeholderText="Start Date"
               onChange={(date) => setBirthDate(date)}
+              dateFormat="dd/MM/yyyy"
+              required="required"
+            /> */}
+            <DatePicker
+              id="date-of-birth"
+              allowInput={true}
+              selected={birthDate}
+              placeholderText="Birth date"
+              onChange={handleChangeBirthDate}
               dateFormat="dd/MM/yyyy"
               required="required"
             />
@@ -292,16 +314,17 @@ const Form = () => {
             <div className="error-message">{errorMessageBirthDate}</div>
           )}
           <div className="datepicker-start">
-            <label className="label-date-start" htmlFor="start-date">
+            {/* <label className="label-date-start" htmlFor="start-date">
               Start Date
-            </label>
+            </label> */}
             <DatePicker
               id="start-date"
+              allowInput={true}
               selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              placeholderText="Start Date"
+              onChange={handleChangeStartDate}
               dateFormat="dd/MM/yyyy"
               required="required"
-              placeholder="Start Date"
             />
           </div>
           {errorMessageStartDate && (
@@ -342,6 +365,7 @@ const Form = () => {
                 className="state"
                 datas={statesName}
                 listenOption={handleChangeState}
+                colorDropdownSelect="white"
               />
               {errorMessageSelectionState && (
                 <div className="error-message">
@@ -365,7 +389,11 @@ const Form = () => {
           </div>
         </fieldset>
         <div className="select-department">
-          <Dropdown datas={departments} listenOption={handleChangeDepartment} />
+          <Dropdown
+            datas={departments}
+            listenOption={handleChangeDepartment}
+            colorDropdownSelect="white"
+          />
         </div>
         {errorMessageSelectionDepartment && (
           <div className="error-message">{errorMessageSelectionDepartment}</div>

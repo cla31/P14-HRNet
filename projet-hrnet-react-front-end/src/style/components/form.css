@@ -103,12 +103,12 @@ input::placeholder {
     margin-right: 6px;
 }
 
-.label-date-birth {
-    /* border: 2px solid red; */
+
+/* .label-date-birth {
     display: block;
     margin-left: 25px;
     margin-bottom: 5px;
-}
+} */
 
 .datepicker-start {
     /* border: 2px solid blue; */
@@ -117,12 +117,12 @@ input::placeholder {
     margin-left: 6px;
 }
 
-.label-date-start {
-    /* border: 2px solid red; */
+
+/* .label-date-start {
     display: block;
     margin-left: 25px;
     margin-bottom: 5px;
-}
+} */
 
 #date-of-birth {
     height: 50px;
