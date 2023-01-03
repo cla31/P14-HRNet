@@ -5,7 +5,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { states } from '../datas/states'
 import { departments } from '../datas/departments'
 import Dropdown from '../components/Dropdown'
-import Modale from '../components/Modale'
+// import Modale from '../components/Modale'
+import { Modal } from 'clairette'
 import { useDispatch } from 'react-redux'
 import { addEployees } from '../redux/redux'
 import { Link } from 'react-router-dom'
@@ -84,11 +85,12 @@ const Form = () => {
   }
 
   const checkBirthDate = (value) => {
-    console.log('valeur de la date', value)
+    // console.log('valeur de la date', value)
     let dateInput = new Date(value)
     let timestampInput = dateInput.getTime()
     let dateNow = Date.now()
-    console.log('valeur de date now()', dateNow)
+    // console.log('valeur de date now()', dateNow)
+    // console.log('valeur de la date input', timestampInput)
     if (timestampInput < dateNow) {
       setErrorMessageBirthDate('')
       return true
@@ -99,8 +101,10 @@ const Form = () => {
 
   const checkStartDate = (value) => {
     // console.log("valeur de la date",value)
+    let dateInput = new Date(value)
+    let timestampInput = dateInput.getTime()
     let dateNow = Date.now()
-    if (value < dateNow) {
+    if (timestampInput < dateNow) {
       setErrorMessageStartDate('')
       return true
     } else {
@@ -405,10 +409,10 @@ const Form = () => {
         </button>
       </div>
       {showModal && (
-        <Modale message={'Employee created'} closeModal={closeModal} />
+        <Modal message={'Employee created'} closeModal={closeModal} />
       )}
 
-      {/* <Modale message={'Employee created!'} closeModal={closeModal} /> */}
+      {/* <Modal message={'Employee created!'} closeModal={closeModal} /> */}
     </>
   )
 }
