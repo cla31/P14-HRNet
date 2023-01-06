@@ -1,26 +1,17 @@
 import '../style/components/modal.css'
-// import iconeValidation from '../assets/validation.svg'
+import iconeValidation from '../assets/validation.svg'
 import { useState } from 'react'
 
-const Modal = ({
-  messageModal,
-  functionButton,
-  messageBouton,
-  image,
-  ContentModalStyle,
-  buttonStyle,
-  ContainerModalStyle,
-  ImageModalStyle,
-}) => {
+const Modal = ({ message, closeModal }) => {
   const [showModal, setShowModal] = useState(true)
   const handleClose = () => {
     setShowModal(false)
   }
   return (
     showModal && (
-      <div className="container-modal" style={ContainerModalStyle}>
+      <div className="container-modal">
         <div className="background-modal"></div>
-        <div className="modal" style={ContentModalStyle}>
+        <div className="modal">
           <div className="modal-cross-container">
             <div className="modal-cross" onClick={handleClose}>
               X
@@ -30,18 +21,13 @@ const Modal = ({
             <div>
               <img
                 className="image-modal"
-                src={image}
+                src={iconeValidation}
                 alt="icone validation"
-                style={ImageModalStyle}
               />
             </div>
-            <h1 className="message-modal">{messageModal}</h1>
-            <button
-              className="button-modal"
-              onClick={functionButton}
-              style={buttonStyle}
-            >
-              {messageBouton}
+            <h1 className="message-modal">{message}</h1>
+            <button className="button-modal" onClick={closeModal}>
+              Close
             </button>
           </div>
         </div>

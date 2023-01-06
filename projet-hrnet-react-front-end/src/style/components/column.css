@@ -1,0 +1,13 @@
+.column {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 2px solid red; */
+}
+
+.bouton-svg {
+    /* border: 2px solid red; */
+    width: 15px;
+    fill: #b9c09d;
+    cursor: pointer;
+}

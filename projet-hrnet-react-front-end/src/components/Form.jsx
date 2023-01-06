@@ -6,12 +6,20 @@ import { states } from '../datas/states'
 import { departments } from '../datas/departments'
 import Dropdown from '../components/Dropdown'
 // import Modale from '../components/Modale'
-import { Modal } from 'clairette'
+import { Modal } from 'modal-lib-claire-marie'
 import { useDispatch } from 'react-redux'
 import { addEployees } from '../redux/redux'
 import { Link } from 'react-router-dom'
 import '../style/components/form.css'
 import 'react-datepicker/dist/react-datepicker.css'
+import { checkInputName } from '../utils/checkInput'
+import { checkDate } from '../utils/checkInput'
+import { validateSelectionState } from '../utils/checkInput'
+import { validateSelectionDepartment } from '../utils/checkInput'
+import { checkCity } from '../utils/checkInput'
+import { checkStreet } from '../utils/checkInput'
+import { checkZipCode } from '../utils/checkInput'
+import iconeValidation from '../assets/validation.svg'
 
 const Form = () => {
   const dispatch = useDispatch()
@@ -53,130 +61,6 @@ const Form = () => {
   const [errorMessageCity, setErrorMessageCity] = useState('')
   const [errorMessageZipCode, setErrorMessageZipCode] = useState('')
 
-  //Contrôle des champs du formulaire:::::::
-  const checkFirst = (value) => {
-    // console.log("Valeur dans check first",value)
-    if (!value) {
-      return setErrorMessageFirst('The field must be filled')
-    } else if (value.length > 0 && (value.length < 3 || value.length > 20)) {
-      return setErrorMessageFirst('Please enter 2 or more characters')
-    } else if (!value.match(/^[\p{L}0-9_.-]*$/u)) {
-      return setErrorMessageFirst(
-        'Firstname must not contain special characters'
-      )
-    } else {
-      setErrorMessageFirst('')
-      return true
-    }
-  }
-
-  const checkLast = (value) => {
-    // console.log("Valeur dans check last",value)
-    if (!value) {
-      return setErrorMessageLast('The field must be filled')
-    } else if (value.length > 0 && (value.length < 3 || value.length > 20)) {
-      return setErrorMessageLast('Please enter 2 or more characters')
-    } else if (!value.match(/^[\p{L}0-9_.-]*$/u)) {
-      return setErrorMessageLast('Lastname must not contain special characters')
-    } else {
-      setErrorMessageLast('')
-      return true
-    }
-  }
-
-  const checkBirthDate = (value) => {
-    // console.log('valeur de la date', value)
-    let dateInput = new Date(value)
-    let timestampInput = dateInput.getTime()
-    let dateNow = Date.now()
-    // console.log('valeur de date now()', dateNow)
-    // console.log('valeur de la date input', timestampInput)
-    if (timestampInput < dateNow) {
-      setErrorMessageBirthDate('')
-      return true
-    } else {
-      return setErrorMessageBirthDate('this date of birth is not possible')
-    }
-  }
-
-  const checkStartDate = (value) => {
-    // console.log("valeur de la date",value)
-    let dateInput = new Date(value)
-    let timestampInput = dateInput.getTime()
-    let dateNow = Date.now()
-    if (timestampInput < dateNow) {
-      setErrorMessageStartDate('')
-      return true
-    } else {
-      return setErrorMessageStartDate('this date of start is not possible')
-    }
-  }
-
-  const validateSelectionState = (selection, validValues) => {
-    // console.log("valeur de la selection",selection)
-    // console.log("valides values",validValues)
-    const found = validValues.find((obj) => obj.name === selection)
-    if (found) {
-      setErrorMessageSelectionState('')
-      return true
-    } else {
-      return setErrorMessageSelectionState('Choose a state')
-    }
-  }
-
-  const validateSelectionDepartment = (selection, validValues) => {
-    // console.log("valeur de la selection",selection)
-    // console.log("valides values",validValues)
-    if (validValues.includes(selection)) {
-      setErrorMessageSelectionDepartment('')
-      return true
-    } else {
-      return setErrorMessageSelectionDepartment('Choose a department')
-    }
-  }
-  const checkStreet = (value) => {
-    // console.log("Valeur dans check last",value)
-    if (!value) {
-      return setErrorMessageStreet('The field must be filled')
-    } else if (value.length > 0 && (value.length < 3 || value.length > 20)) {
-      return setErrorMessageStreet('Please enter 2 or more characters')
-    } else if (!value.match(/^[\p{L}0-9_.-]*$/u)) {
-      return setErrorMessageStreet(
-        'Street name must not contain special characters'
-      )
-    } else {
-      setErrorMessageStreet('')
-      return true
-    }
-  }
-
-  const checkCity = (value) => {
-    // console.log("Valeur dans check last",value)
-    if (!value) {
-      return setErrorMessageCity('The field must be filled')
-    } else if (value.length > 0 && (value.length < 3 || value.length > 20)) {
-      return setErrorMessageCity('Please enter 2 or more characters')
-    } else if (!value.match(/^[\p{L}0-9_.-]*$/u)) {
-      return setErrorMessageCity(
-        'City name must not contain special characters'
-      )
-    } else {
-      setErrorMessageCity('')
-      return true
-    }
-  }
-
-  const checkZipCode = (value) => {
-    if (value === '') {
-      return setErrorMessageZipCode('The field must be filled')
-    } else if (!value.match(/^[0-9]+$/)) {
-      return setErrorMessageZipCode('Please enter a number')
-    } else {
-      setErrorMessageZipCode('', true)
-      return true
-    }
-  }
-
   const options = { day: '2-digit', month: '2-digit', year: 'numeric' }
 
   const newEmployeeDatas = {
@@ -202,25 +86,53 @@ const Form = () => {
     const startDateFormated = startDate.toLocaleDateString('fr-FR', options)
     newEmployeeDatas.startDate = startDateFormated
 
-    checkFirst(newEmployeeDatas.firstName)
-    checkLast(newEmployeeDatas.lastName)
-    checkBirthDate(birthDate.toLocaleDateString('fr-FR', options))
-    checkStartDate(startDate.toLocaleDateString('fr-FR', options))
-    validateSelectionState(newEmployeeDatas.state, states)
-    validateSelectionDepartment(newEmployeeDatas.department, departments)
-    checkCity(newEmployeeDatas.city)
-    checkStreet(newEmployeeDatas.street)
-    checkZipCode(newEmployeeDatas.zipcode)
+    checkInputName(newEmployeeDatas.firstName, setErrorMessageFirst)
+    checkInputName(newEmployeeDatas.lastName, setErrorMessageLast)
+    checkDate(
+      birthDate.toLocaleDateString('fr-FR', options),
+      setErrorMessageBirthDate
+    )
+    checkDate(
+      startDate.toLocaleDateString('fr-FR', options),
+      setErrorMessageStartDate
+    )
+    validateSelectionState(
+      newEmployeeDatas.state,
+      states,
+      setErrorMessageSelectionState
+    )
+    validateSelectionDepartment(
+      newEmployeeDatas.department,
+      departments,
+      setErrorMessageSelectionDepartment
+    )
+    checkCity(newEmployeeDatas.city, setErrorMessageCity)
+    checkStreet(newEmployeeDatas.street, setErrorMessageStreet)
+    checkZipCode(newEmployeeDatas.zipcode, setErrorMessageZipCode)
     if (
-      newEmployeeDatas.firstName &&
-      checkLast(newEmployeeDatas.lastName) &&
-      checkBirthDate(birthDate.toLocaleDateString('fr-FR', options)) &&
-      checkStartDate(startDate.toLocaleDateString('fr-FR', options)) &&
-      validateSelectionState(newEmployeeDatas.state, states) &&
-      validateSelectionDepartment(newEmployeeDatas.department, departments) &&
-      checkCity(newEmployeeDatas.city) &&
-      checkStreet(newEmployeeDatas.street) &&
-      checkZipCode(newEmployeeDatas.zipcode) === true
+      checkInputName(newEmployeeDatas.firstName, setErrorMessageFirst) &&
+      checkInputName(newEmployeeDatas.lastName, setErrorMessageLast) &&
+      checkDate(
+        birthDate.toLocaleDateString('fr-FR', options),
+        setErrorMessageBirthDate
+      ) &&
+      checkDate(
+        startDate.toLocaleDateString('fr-FR', options),
+        setErrorMessageStartDate
+      ) &&
+      validateSelectionState(
+        newEmployeeDatas.state,
+        states,
+        setErrorMessageSelectionState
+      ) &&
+      validateSelectionDepartment(
+        newEmployeeDatas.department,
+        departments,
+        setErrorMessageSelectionDepartment
+      ) &&
+      checkCity(newEmployeeDatas.city, setErrorMessageCity) &&
+      checkStreet(newEmployeeDatas.street, setErrorMessageStreet) &&
+      checkZipCode(newEmployeeDatas.zipcode, setErrorMessageZipCode) === true
     ) {
       // console.log('New Employee State1', newEmployeeDatas.state)
       const acronymeState = states.find(
@@ -240,6 +152,7 @@ const Form = () => {
     // console.log('Valeur selectionnée', selectedValue)
   }
 
+  //evènements du formulaire
   const handleChangeState = (event) => {
     const selectedValue = event.target.value
     setState(selectedValue)
@@ -253,10 +166,7 @@ const Form = () => {
   }
 
   return (
-    <>
-      {/* <div className="title">
-        <h1>HRnet</h1>
-      </div> */}
+    <div className="container-form">
       <div className="link-table">
         <Link to="/CurrentEmployee">-View Current Employees-</Link>
       </div>
@@ -292,18 +202,6 @@ const Form = () => {
         )}
         <div className="dates">
           <div className="datepicker-birth">
-            {/* <label className="label-date-birth" htmlFor="date-of-birth">
-              Date of Birth
-            </label> */}
-            {/* <DatePicker
-              id="date-of-birth"
-              allowInput={true}
-              selected={birthDate}
-              placeholderText="Start Date"
-              onChange={(date) => setBirthDate(date)}
-              dateFormat="dd/MM/yyyy"
-              required="required"
-            /> */}
             <DatePicker
               id="date-of-birth"
               allowInput={true}
@@ -318,9 +216,6 @@ const Form = () => {
             <div className="error-message">{errorMessageBirthDate}</div>
           )}
           <div className="datepicker-start">
-            {/* <label className="label-date-start" htmlFor="start-date">
-              Start Date
-            </label> */}
             <DatePicker
               id="start-date"
               allowInput={true}
@@ -408,12 +303,21 @@ const Form = () => {
           Save
         </button>
       </div>
-      {showModal && (
-        <Modal message={'Employee created'} closeModal={closeModal} />
-      )}
+      {/* {showModal && (
+        <Modale message={'Employee created'} closeModal={closeModal} />
+      )} */}
 
-      {/* <Modal message={'Employee created!'} closeModal={closeModal} /> */}
-    </>
+      <Modal
+        messageModal={'Employee created!'}
+        messageBouton={'Close'}
+        functionButton={closeModal}
+        image={iconeValidation}
+        ContentModalStyle={{ color: '#001730', background: '#e2d4ca' }}
+        buttonStyle={{ backgroundColor: '#001730' }}
+        ContainerModalStyle={{ height: '90%' }}
+        ImageModalStyle={{ width: '100px', height: '100px' }}
+      />
+    </div>
   )
 }
 

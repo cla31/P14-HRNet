@@ -49,7 +49,7 @@ const Home = () => {
           <div className="datas">
             {datas && datas.length > 0 && (
               <div className="datas">
-                {datas[0].firstname}{' '}
+                {/* {datas[0].firstname}{' '} */}
                 {/* {console.log('Firstname ds le form', datas[0].firstname)} */}
               </div>
             )}

@@ -7,7 +7,7 @@ const PageError = () => {
   return (
     <div>
       <div className="message-erreur">
-        <img src={notFound} alt="" />
+        <img className="img-pageError" src={notFound} alt="" />
         <span>
           Oups! La page que vous demandez n'existe pas ou le serveur est
           indisponible.
