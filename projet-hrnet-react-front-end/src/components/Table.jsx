@@ -13,8 +13,28 @@ const Table = () => {
     const selectedValue = event.target.value
     setNumberFilter(selectedValue)
   }
+  //Dans tableData, pour ne récupérer que les objets qui possèdent les clés souhaitées
+  //afin de ne pas avoir de lignes vides ds mon tableau d'affichage.
   const tableData = useSelector((state) => state.table)
-  // console.log("tableData",tableData)
+  console.log('tableData', tableData)
+  const desiredKeys = [
+    'firstName',
+    'lastName',
+    'birthDate',
+    'department',
+    'startDate',
+    'street',
+    'city',
+    'state',
+    'zipcode',
+  ]
+
+  const filteredObjects = tableData.filter((object) => {
+    return desiredKeys.every((key) => object.hasOwnProperty(key))
+  })
+
+  console.log('filtered objets', filteredObjects)
+
   return (
     <>
       <div className="section-film-search">
@@ -66,7 +86,7 @@ const Table = () => {
             </tr>
           </tbody>
           <tbody>
-            {tableData.map((item, index) => (
+            {filteredObjects.map((item, index) => (
               <tr key={item + index}>
                 <td>{item.firstName}</td>
                 <td>{item.lastName}</td>

@@ -8,7 +8,7 @@ import Dropdown from '../components/Dropdown'
 // import Modale from '../components/Modale'
 import { Modal } from 'modal-lib-claire-marie'
 import { useDispatch } from 'react-redux'
-import { addEployees } from '../redux/redux'
+import { addEmployees } from '../redux/redux'
 import { Link } from 'react-router-dom'
 import '../style/components/form.css'
 import 'react-datepicker/dist/react-datepicker.css'
@@ -142,7 +142,7 @@ const Form = () => {
       newEmployeeDatas.state = acronymeState
       // console.log('New Employee State2', newEmployeeDatas.state)
       if (newEmployeeDatas.state === acronymeState)
-        dispatch(addEployees(newEmployeeDatas)) && setShowModal(true)
+        dispatch(addEmployees(newEmployeeDatas)) && setShowModal(true)
     }
   }
 
