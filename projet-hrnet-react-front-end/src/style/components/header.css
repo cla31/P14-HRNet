@@ -1,0 +1,43 @@
+.main-nav {
+    /* border: 2px solid green; */
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 20;
+    color: white;
+    width: 100px;
+}
+
+.container-connexion {
+    /* border: 2px solid red; */
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.class-login-current-employees {
+    color: #3c480a;
+    text-decoration: none;
+}
+
+.class-home {
+    color: white;
+    text-decoration: none;
+}
+
+.iconeUser {
+    text-align: center;
+}
+
+.logUser {
+    text-align: center;
+}
+
+
+/* Media queries version MOBILE  */
+
+@media screen and (max-width: 768px) {
+    .main-nav {
+        width: 70px;
+    }
+}

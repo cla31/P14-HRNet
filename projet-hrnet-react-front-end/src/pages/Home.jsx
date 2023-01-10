@@ -7,12 +7,18 @@ import { employeesDatas } from '../services/employeesService'
 import Loader from '../components/Loader'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { getEmployees } from '../redux/redux'
+import { getEmployees, setIsLoading } from '../redux/redux'
+import { useSelector } from 'react-redux'
 
 const Home = () => {
+  const isLoading = useSelector((state) => state.table.isLoading)
+  // console.log(
+  //   'state',
+  //   useSelector((state) => state.table[0].isLoading)
+  // )
   const dispatch = useDispatch()
   // const [datas, setDatas] = useState([])
-  const [isLoading, setIsloading] = useState(true)
+  // const [isLoading, setIsloading] = useState(true)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -30,6 +36,7 @@ const Home = () => {
             // Cela permet de passer l'objet employee à la fonction dispatch en tant que
             // chaîne de caractères représentant ses valeurs.
             dispatch(getEmployees(JSON.stringify(employee)))
+            dispatch(setIsLoading(false))
           })
         } catch (error) {
           console.log('=====error=====', error)
@@ -37,14 +44,16 @@ const Home = () => {
         }
       }
       getAllemployees()
+      // dispatch(setIsLoading(false))
+      // console.log('isLoading ds useEffect Home', isLoading)
       // console.log('get all employees', getAllemployees())
       // console.log('datas ds Home', datas)
-      setIsloading(false)
     }, 1000)
   }, [])
 
   return (
     <>
+      {/* {console.log('isLoading ds Home', isLoading)} */}
       {isLoading ? (
         <Loader />
       ) : (

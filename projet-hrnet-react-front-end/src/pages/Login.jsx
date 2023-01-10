@@ -1,6 +1,7 @@
 import React from 'react'
 import '../style/pages/Login.css'
 import logo from '../assets/logo.png'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
   return (
@@ -60,7 +61,10 @@ const Login = () => {
               required=""
             />
           </form>
-          <button className="login-button">Login</button>
+          {/* <button className="login-button"></button> */}
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <button className="login-button">Login</button>
+          </Link>
         </div>
       </div>
     </div>

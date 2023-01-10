@@ -13,7 +13,8 @@ const initialState = [{
     street: "",
     city: "",
     state: "",
-    zipcode: ""
+    zipcode: "",
+    isLoading: true,
 
 }]
 const tableSlice = createSlice({
@@ -32,10 +33,19 @@ const tableSlice = createSlice({
                 city: action.payload.city,
                 state: action.payload.state,
                 zipcode: action.payload.zipcode
+
             }
             state.push(newEmployee)
         },
-
+        setIsLoading: (state, action) => {
+            // console.log("action.payload", action.payload)
+            // state.isLoading = action.payload
+            const loading = {
+                    isLoading: action.payload
+                }
+                // console.log("loading.isLoading", loading.isLoading);
+            state.push(loading)
+        },
         getEmployees: (state, action) => {
             // const employee = {
             //     id: action.payload,
@@ -49,13 +59,15 @@ const tableSlice = createSlice({
             // qu'elle puisse traiter correctement l'objet employee 
             // lorsqu'il est passé en tant que chaîne de caractères.
             const employee = JSON.parse(action.payload)
-            console.log("employee dans le state", employee)
+                // console.log("employee dans le state", employee)
             state.push(employee)
+                // console.log('isLoading', state[0].isLoading)
         }
+
     }
 
 })
-export const { addEmployees, getEmployees } = tableSlice.actions;
+export const { addEmployees, getEmployees, setIsLoading } = tableSlice.actions;
 export const store = configureStore({
     reducer: {
         table: tableSlice.reducer,

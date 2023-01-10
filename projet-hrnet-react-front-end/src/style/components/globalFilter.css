@@ -24,6 +24,7 @@
     border: 1px solid transparent;
     border-radius: 40px;
     font-size: 16px;
+    font-weight: 300;
     background-color: #6e7b39;
     background-image: url('https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/search-24.png');
     background-position: 10px 12px;
@@ -35,4 +36,8 @@
 
 #searchInput:hover {
     background-color: #789115;
+}
+
+#searchInput:focus {
+    color: white;
 }

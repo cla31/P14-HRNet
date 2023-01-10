@@ -1,22 +1,35 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import '../style/components/table.css'
-import Dropdown from '../components/Dropdown'
-import { numberFilterOptions } from '../datas/numberFilter'
-import Column from '../components/Column'
-import Search from '../components/Search'
-import { useState } from 'react'
+import { COLUMNS, DATAS } from '../datas/mockDatasTable'
 import { useSelector } from 'react-redux'
+// import { format } from "date-fns";
+import {
+  useTable,
+  useSortBy,
+  useFilters,
+  useGlobalFilter,
+  usePagination,
+} from 'react-table'
+import { GlobalFilter } from '../components/GlobalFilter'
+import { ColumnFilter } from '../components/ColumnFilter'
+// cf: https://blog.openreplay.com/better-tables-with-react-table/
+//Penser à installer date-fns pour le formatage des dates:!!
+//https://date-fns.org/docs/Getting-Started#installation
 
 const Table = () => {
-  const [setNumberFilter] = useState(1)
-  const handleChangeFilter = (event) => {
-    const selectedValue = event.target.value
-    setNumberFilter(selectedValue)
-  }
-  //Dans tableData, pour ne récupérer que les objets qui possèdent les clés souhaitées
-  //afin de ne pas avoir de lignes vides ds mon tableau d'affichage.
+  const columns = useMemo(() => COLUMNS, []) // memorize before adding to useTable hook
+  // console.log('les colonnes', columns)
+
+  //VISUALISATION DU TABLEAU EN UTILISANT LES DONNEES MOCKEES::::::
+  //(penser aussi à décommenter le formatage des dates dans COLUMNS)
+  // const data = useMemo(() => DATAS, []) // memorize before adding to useTable hook
+
+  //VISUALISATION DU TABLEAU EN UTILISANT LES DONNEES DU FORM::::::
+  //(penser à commenter le formatage des dates dans COLUMNS)
   const tableData = useSelector((state) => state.table)
   console.log('tableData', tableData)
+  //Dans tableData, pour ne récupérer que les objets qui possèdent les clés souhaitées
+  //afin de ne pas avoir de lignes vides ds mon tableau d'affichage.
   const desiredKeys = [
     'firstName',
     'lastName',
@@ -28,87 +41,173 @@ const Table = () => {
     'state',
     'zipcode',
   ]
-
   const filteredObjects = tableData.filter((object) => {
     return desiredKeys.every((key) => object.hasOwnProperty(key))
   })
-
   console.log('filtered objets', filteredObjects)
+  // const data = filteredObjects
+  const data = tableData
+
+  // default column component
+  const defaultColumn = useMemo(() => {
+    return {
+      Filter: ColumnFilter,
+    }
+  }, [])
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    setGlobalFilter,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize, globalFilter },
+  } = useTable(
+    {
+      columns, // useTable hook takes in memoized columns and data to be displayed
+      data,
+      defaultColumn, // add defaultColumn
+    },
+    useFilters, // add useFilters above useGlobalFilter
+    useGlobalFilter,
+    useSortBy, // this adds sorting feature to the table instance
+    usePagination
+  )
 
   return (
     <>
       <div className="section-film-search">
         <div className="container-filter">
-          <p>Show</p>
-          <div className="filter">
-            <Dropdown
-              datas={numberFilterOptions}
-              listenOption={handleChangeFilter}
-              colorDropdownSelect="white"
-            />
-          </div>
-          <p>entries</p>
-        </div>
-        <Search />
-      </div>
-
-      <div className="table">
-        <table>
-          <tbody>
-            <tr>
-              <th>
-                <Column columnName={'firstName'} />
-              </th>
-              <th>
-                <Column columnName={'Last Name'} />
-              </th>
-              <th>
-                <Column columnName={'Sart Date'} />
-              </th>
-              <th>
-                <Column columnName={' Department'} />
-              </th>
-              <th>
-                <Column columnName={' Date of birth'} />
-              </th>
-              <th>
-                <Column columnName={'Street'} />
-              </th>
-              <th>
-                <Column columnName={'City'} />
-              </th>
-              <th>
-                <Column columnName={'State'} />
-              </th>
-              <th>
-                <Column columnName={'Zipcode'} />
-              </th>
-            </tr>
-          </tbody>
-          <tbody>
-            {filteredObjects.map((item, index) => (
-              <tr key={item + index}>
-                <td>{item.firstName}</td>
-                <td>{item.lastName}</td>
-                <td>{item.startDate}</td>
-                <td>{item.department}</td>
-                <td>{item.birthDate}</td>
-                <td>{item.street}</td>
-                <td>{item.city}</td>
-                <td>{item.state}</td>
-                <td>{item.zipcode}</td>
-              </tr>
+          <select
+            value={pageSize}
+            onChange={(e) => {
+              setPageSize(Number(e.target.value))
+            }}
+          >
+            {[10, 20, 30, 40, 50].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
             ))}
+          </select>
+        </div>
+        <GlobalFilter
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        />
+      </div>
+      {/* apply the table props */}
+      <div className="table">
+        <table {...getTableProps()}>
+          <thead>
+            {
+              // Loop over the header rows
+              headerGroups.map((headerGroup) => (
+                // Apply the header row props
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {
+                    // Loop over the headers in each row
+                    headerGroup.headers.map((column) => (
+                      // Apply the header cell props
+                      <th
+                        {...column.getHeaderProps(
+                          column.getSortByToggleProps()
+                        )}
+                      >
+                        {column.render('Header')}
+                        <span className="custom-filter">
+                          {column.isSorted
+                            ? column.isSortedDesc
+                              ? ' ▼'
+                              : ' ▲'
+                            : ' ▲'}
+                        </span>
+                        <div>
+                          {column.canFilter ? column.render('Filter') : null}
+                        </div>{' '}
+                        {/*Add column filter component in each column header  */}
+                      </th>
+                    ))
+                  }
+                </tr>
+              ))
+            }
+          </thead>
+          {/* Apply the table body props */}
+          <tbody {...getTableBodyProps()}>
+            {
+              // Loop over the table rows
+              page.map((row, i) => {
+                // Prepare the row for display
+                prepareRow(row)
+                return (
+                  <tr {...row.getRowProps()}>
+                    {
+                      // Loop over the rows cells
+                      row.cells.map((cell) => {
+                        // Apply the cell props
+                        return (
+                          <td {...cell.getCellProps()}>
+                            {cell.render('Cell')}
+                          </td>
+                        )
+                      })
+                    }
+                  </tr>
+                )
+              })
+            }
           </tbody>
         </table>
       </div>
       <div className="navigation-table">
-        <div className="pages-entries">
-          <p className="show-entries">-Showing 0 to 0 of 0 entries-</p>
-        </div>
-        <div className="previous-next">
-          <p className="previous">{'< Previous'}</p>
-          <p className="next">{'Next >'}</p>
+        <div className="pagination" style={{ marginTop: '1rem' }}>
+          <div className="button-pagination">
+            <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+              {'<<'}
+            </button>{' '}
+            <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+              {'<'}
+            </button>{' '}
+            <button onClick={() => nextPage()} disabled={!canNextPage}>
+              {'>'}
+            </button>{' '}
+            <button
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+            >
+              {'>>'}
+            </button>{' '}
+          </div>
+          <div className="navigation-input">
+            <span className="page-n-of-n">
+              Page{' '}
+              <strong>
+                {pageIndex + 1} of {pageOptions.length}
+              </strong>{' '}
+            </span>
+            <span className="go-to-page">
+              Go to page:{''}
+              <input
+                type="number"
+                defaultValue={pageIndex + 1}
+                onChange={(e) => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0
+                  gotoPage(page)
+                }}
+                style={{ width: '100px' }}
+              />
+            </span>{' '}
+          </div>
         </div>
       </div>
     </>
