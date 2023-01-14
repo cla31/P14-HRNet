@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom'
 import '../style/components/form.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import { checkInputName } from '../utils/checkInput'
-import { checkDate } from '../utils/checkInput'
+// import { checkDate } from '../utils/checkInput'
 import { validateSelectionState } from '../utils/checkInput'
 import { validateSelectionDepartment } from '../utils/checkInput'
 import { checkCity } from '../utils/checkInput'
@@ -23,7 +23,6 @@ import iconeValidation from '../assets/validation.svg'
 
 const Form = () => {
   const dispatch = useDispatch()
-
   //Gestion du dropdow "states"
   let arrayStatesFilter = []
 
@@ -48,11 +47,11 @@ const Form = () => {
   const [street, setStreet] = useState('')
   const [city, setCity] = useState('')
   const [state, setState] = useState('')
-  const [zipcode, setZipcode] = useState('')
+  const [zipcod, setZipcod] = useState('')
   const [errorMessageFirst, setErrorMessageFirst] = useState('')
   const [errorMessageLast, setErrorMessageLast] = useState('')
-  const [errorMessageBirthDate, setErrorMessageBirthDate] = useState('')
-  const [errorMessageStartDate, setErrorMessageStartDate] = useState('')
+  // const [errorMessageBirthDate, setErrorMessageBirthDate] = useState('')
+  // const [errorMessageStartDate, setErrorMessageStartDate] = useState('')
   const [errorMessageSelectionState, setErrorMessageSelectionState] =
     useState('')
   const [errorMessageSelectionDepartment, setErrorMessageSelectionDepartment] =
@@ -61,41 +60,27 @@ const Form = () => {
   const [errorMessageCity, setErrorMessageCity] = useState('')
   const [errorMessageZipCode, setErrorMessageZipCode] = useState('')
 
-  const options = { day: '2-digit', month: '2-digit', year: 'numeric' }
-
   const newEmployeeDatas = {
     firstName: firstname,
     lastName: lastname,
-    birthDate: birthDate,
+    birthDate: new Date(birthDate),
     department: department,
-    startDate: startDate,
+    startDate: new Date(startDate),
     street: street,
     city: city,
     state: state,
-    zipcode: zipcode,
+    zipcod: zipcod,
   }
 
   const save = (e) => {
     e.preventDefault()
-    // console.log("new employee datas",newEmployeeDatas.firstName);
-    // console.log("new employee datas",newEmployeeDatas.lastName);
-    const birthDateFormated = birthDate.toLocaleDateString('fr-FR', options)
-    // console.log('Birthdate in save function', newEmployeeDatas.birthDate)
-    // console.log('Date formatée?????', birthDateFormated)
+    const birthDateFormated = birthDate.toISOString().replace(/\.\d{3}Z$/, 'Z')
     newEmployeeDatas.birthDate = birthDateFormated
-    const startDateFormated = startDate.toLocaleDateString('fr-FR', options)
+    const startDateFormated = startDate.toISOString().replace(/\.\d{3}Z$/, 'Z')
     newEmployeeDatas.startDate = startDateFormated
 
     checkInputName(newEmployeeDatas.firstName, setErrorMessageFirst)
     checkInputName(newEmployeeDatas.lastName, setErrorMessageLast)
-    checkDate(
-      birthDate.toLocaleDateString('fr-FR', options),
-      setErrorMessageBirthDate
-    )
-    checkDate(
-      startDate.toLocaleDateString('fr-FR', options),
-      setErrorMessageStartDate
-    )
     validateSelectionState(
       newEmployeeDatas.state,
       states,
@@ -108,18 +93,10 @@ const Form = () => {
     )
     checkCity(newEmployeeDatas.city, setErrorMessageCity)
     checkStreet(newEmployeeDatas.street, setErrorMessageStreet)
-    checkZipCode(newEmployeeDatas.zipcode, setErrorMessageZipCode)
+    checkZipCode(newEmployeeDatas.zipcod, setErrorMessageZipCode)
     if (
       checkInputName(newEmployeeDatas.firstName, setErrorMessageFirst) &&
       checkInputName(newEmployeeDatas.lastName, setErrorMessageLast) &&
-      checkDate(
-        birthDate.toLocaleDateString('fr-FR', options),
-        setErrorMessageBirthDate
-      ) &&
-      checkDate(
-        startDate.toLocaleDateString('fr-FR', options),
-        setErrorMessageStartDate
-      ) &&
       validateSelectionState(
         newEmployeeDatas.state,
         states,
@@ -132,7 +109,7 @@ const Form = () => {
       ) &&
       checkCity(newEmployeeDatas.city, setErrorMessageCity) &&
       checkStreet(newEmployeeDatas.street, setErrorMessageStreet) &&
-      checkZipCode(newEmployeeDatas.zipcode, setErrorMessageZipCode) === true
+      checkZipCode(newEmployeeDatas.zipcod, setErrorMessageZipCode) === true
     ) {
       // console.log('New Employee State1', newEmployeeDatas.state)
       const acronymeState = states.find(
@@ -142,7 +119,11 @@ const Form = () => {
       newEmployeeDatas.state = acronymeState
       // console.log('New Employee State2', newEmployeeDatas.state)
       if (newEmployeeDatas.state === acronymeState)
-        dispatch(addEmployees(newEmployeeDatas)) && setShowModal(true)
+        dispatch(addEmployees(newEmployeeDatas))
+      setShowModal(true)
+      document.getElementById('create-employee').reset()
+      setBirthDate('')
+      setStartDate('')
     }
   }
 
@@ -206,15 +187,15 @@ const Form = () => {
               id="date-of-birth"
               allowInput={true}
               selected={birthDate}
-              placeholderText="Birth date"
+              placeholderText="Birth Date"
               onChange={handleChangeBirthDate}
               dateFormat="dd/MM/yyyy"
               required="required"
             />
           </div>
-          {errorMessageBirthDate && (
+          {/* {errorMessageBirthDate && (
             <div className="error-message">{errorMessageBirthDate}</div>
-          )}
+          )} */}
           <div className="datepicker-start">
             <DatePicker
               id="start-date"
@@ -226,9 +207,9 @@ const Form = () => {
               required="required"
             />
           </div>
-          {errorMessageStartDate && (
+          {/* {errorMessageStartDate && (
             <div className="error-message">{errorMessageStartDate}</div>
-          )}
+          )} */}
         </div>
         <fieldset className="address">
           <div className="legend-address">
@@ -278,7 +259,7 @@ const Form = () => {
                 id="zip-code"
                 type="number"
                 placeholder="Zipcode"
-                onChange={(e) => setZipcode(e.target.value)}
+                onChange={(e) => setZipcod(e.target.value)}
                 required="required"
               />
               {errorMessageZipCode && (
@@ -303,11 +284,20 @@ const Form = () => {
           Save
         </button>
       </div>
-      {/* {showModal && (
-        <Modale message={'Employee created'} closeModal={closeModal} />
-      )} */}
+      {showModal && (
+        <Modal
+          messageModal={'Employee created!'}
+          messageBouton={'Close'}
+          functionButton={closeModal}
+          image={iconeValidation}
+          ContentModalStyle={{ color: '#001730', background: '#e2d4ca' }}
+          buttonStyle={{ backgroundColor: '#001730' }}
+          ContainerModalStyle={{ height: '90%' }}
+          ImageModalStyle={{ width: '100px', height: '100px' }}
+        />
+      )}
 
-      <Modal
+      {/* <Modal
         messageModal={'Employee created!'}
         messageBouton={'Close'}
         functionButton={closeModal}
@@ -316,7 +306,7 @@ const Form = () => {
         buttonStyle={{ backgroundColor: '#001730' }}
         ContainerModalStyle={{ height: '90%' }}
         ImageModalStyle={{ width: '100px', height: '100px' }}
-      />
+      /> */}
     </div>
   )
 }

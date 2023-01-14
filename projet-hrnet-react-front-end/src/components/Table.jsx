@@ -1,8 +1,11 @@
 import React, { useMemo } from 'react'
 import '../style/components/table.css'
-import { COLUMNS, DATAS } from '../datas/mockDatasTable'
+import { DATAS } from '../datas/mockDatasTable'
+import { COLUMNS } from '../utils/columns'
 import { useSelector } from 'react-redux'
 // import { format } from "date-fns";
+//Essaie réparation: test version avec les données du state et la librairie
+//Comme une nouvelle ligne écrase la précédente..
 import {
   useTable,
   useSortBy,
@@ -18,37 +21,21 @@ import { ColumnFilter } from '../components/ColumnFilter'
 
 const Table = () => {
   const columns = useMemo(() => COLUMNS, []) // memorize before adding to useTable hook
-  // console.log('les colonnes', columns)
 
-  //VISUALISATION DU TABLEAU EN UTILISANT LES DONNEES MOCKEES::::::
-  //(penser aussi à décommenter le formatage des dates dans COLUMNS)
+  const stateEmployeesAdded = useSelector(
+    (state) => state.employees.employeesAdded
+  )
+  // console.log('les employés ajoutés ds le state', stateEmployeesAdded)
+
+  // VISUALISATION DU TABLEAU EN UTILISANT LES DONNEES MOCKEES::::::
   // const data = useMemo(() => DATAS, []) // memorize before adding to useTable hook
+  // console.log('data', data)
 
   //VISUALISATION DU TABLEAU EN UTILISANT LES DONNEES DU FORM::::::
-  //(penser à commenter le formatage des dates dans COLUMNS)
-  const tableData = useSelector((state) => state.table)
-  console.log('tableData', tableData)
-  //Dans tableData, pour ne récupérer que les objets qui possèdent les clés souhaitées
-  //afin de ne pas avoir de lignes vides ds mon tableau d'affichage.
-  const desiredKeys = [
-    'firstName',
-    'lastName',
-    'birthDate',
-    'department',
-    'startDate',
-    'street',
-    'city',
-    'state',
-    'zipcode',
-  ]
-  const filteredObjects = tableData.filter((object) => {
-    return desiredKeys.every((key) => object.hasOwnProperty(key))
-  })
-  console.log('filtered objets', filteredObjects)
-  // const data = filteredObjects
-  const data = tableData
+  const data = useMemo(() => stateEmployeesAdded, [])
 
-  // default column component
+  //Code affichage tableau avec la librairie
+
   const defaultColumn = useMemo(() => {
     return {
       Filter: ColumnFilter,

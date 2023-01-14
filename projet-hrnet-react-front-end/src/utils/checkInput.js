@@ -12,20 +12,20 @@ export const checkInputName = (value, setError) => {
     }
 }
 
-export const checkDate = (value, setError) => {
-    // console.log('valeur de la date', value)
-    let dateInput = new Date(value)
-    let timestampInput = dateInput.getTime()
-    let dateNow = Date.now()
-        // console.log('valeur de date now()', dateNow)
-        // console.log('valeur de la date input', timestampInput)
-    if (timestampInput < dateNow) {
-        setError('')
-        return true
-    } else {
-        return setError('this date is not possible')
-    }
-}
+// export const checkDate = (value, setError) => {
+//     // console.log('valeur de la date', value)
+//     let dateInput = new Date(value)
+//     let timestampInput = dateInput.getTime()
+//     let dateNow = Date.now()
+//         // console.log('valeur de date now()', dateNow)
+//         // console.log('valeur de la date input', timestampInput)
+//     if (timestampInput < dateNow) {
+//         setError('')
+//         return true
+//     } else {
+//         return setError('this date is not possible')
+//     }
+// }
 export const validateSelectionState = (selection, validValues, setError) => {
     // console.log("valeur de la selection",selection)
     // console.log("valides values",validValues)

@@ -1,28 +1,38 @@
-// import { states } from "../datas/states";
+import { getDatasEmployees } from '../services/service'
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import { configureStore } from "@reduxjs/toolkit";
 
-const { configureStore } = require("@reduxjs/toolkit");
-const { createSlice } = require("@reduxjs/toolkit");
 
-const initialState = [{
-    id: null,
-    firstName: "",
-    lastName: "",
-    birthDate: "",
-    department: "",
-    startDate: "",
-    street: "",
-    city: "",
-    state: "",
-    zipcode: "",
-    isLoading: true,
 
-}]
-const tableSlice = createSlice({
-    name: "table",
+
+
+export const getEmployees = createAsyncThunk('employees/getEmployees', async(thunkAPI) => {
+    try {
+        const employees = await getDatasEmployees()
+            // console.log('employés ds fichier Redux', employees)
+        if (!employees) { return thunkAPI.rejectWithValue('error ') }
+        return employees
+
+    } catch (error) {
+        //console.log('request failed 404 error ',error )        
+        return thunkAPI.rejectWithValue(error)
+    }
+})
+
+const initialState = {
+    employees: [],
+    employeesAdded: [],
+    isLoading: false,
+}
+
+export const employeesSlice = createSlice({
+    name: "employees",
     initialState,
 
     reducers: {
         addEmployees: (state, action) => {
+            // console.log("Test addEmployees");
             const newEmployee = {
                 firstName: action.payload.firstName,
                 lastName: action.payload.lastName,
@@ -32,44 +42,36 @@ const tableSlice = createSlice({
                 street: action.payload.street,
                 city: action.payload.city,
                 state: action.payload.state,
-                zipcode: action.payload.zipcode
+                zipcod: action.payload.zipcod
 
             }
-            state.push(newEmployee)
-        },
-        setIsLoading: (state, action) => {
-            // console.log("action.payload", action.payload)
-            // state.isLoading = action.payload
-            const loading = {
-                    isLoading: action.payload
-                }
-                // console.log("loading.isLoading", loading.isLoading);
-            state.push(loading)
-        },
-        getEmployees: (state, action) => {
-            // const employee = {
-            //     id: action.payload,
-            //     firstName: action.payload,
-            //     lastName: action.payload
-            // }
-            // state.push(employee)
-
-
-            // Mise à jour de la fonction getEmployees pour 
-            // qu'elle puisse traiter correctement l'objet employee 
-            // lorsqu'il est passé en tant que chaîne de caractères.
-            const employee = JSON.parse(action.payload)
-                // console.log("employee dans le state", employee)
-            state.push(employee)
-                // console.log('isLoading', state[0].isLoading)
+            state.employeesAdded.push(newEmployee)
         }
-
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(getEmployees.pending, (state) => {
+                state.isLoading = true
+                    // console.log("state.loading", state.isLoading)
+            })
+            .addCase(getEmployees.rejected, (state, action) => {
+                state.error = action.error
+                state.isLoading = false
+            })
+            .addCase(getEmployees.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.employees = action.payload
+                    // console.log("payload", action.payload)
+            })
     }
 
+
+
 })
-export const { addEmployees, getEmployees, setIsLoading } = tableSlice.actions;
+
+export const { addEmployees } = employeesSlice.actions;
 export const store = configureStore({
     reducer: {
-        table: tableSlice.reducer,
+        employees: employeesSlice.reducer,
     }
 })

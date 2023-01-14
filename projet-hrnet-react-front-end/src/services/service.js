@@ -10,7 +10,7 @@ export const getDatasEmployees = async() => {
             // console.log("réponse de backFetch", backFetch)
         return backFetch;
     } catch (error) {
-        console.log("erreur ds le fetch", error)
+        // console.log("erreur ds le fetch", error)
         throw error
     }
 }
