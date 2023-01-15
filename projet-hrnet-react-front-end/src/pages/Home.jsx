@@ -34,6 +34,7 @@ const Home = () => {
   return (
     <>
       {/* {console.log('isLoading ds Home', isLoading)} */}
+
       {isLoading ? (
         <Loader />
       ) : (

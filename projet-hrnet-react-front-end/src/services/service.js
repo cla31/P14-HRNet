@@ -7,7 +7,7 @@ export const getDatasEmployees = async() => {
             },
         })
         const backFetch = await fetchJson.json()
-            // console.log("réponse de backFetch", backFetch)
+            // console.log("réponse de backFetch", backFetch)  
         return backFetch;
     } catch (error) {
         // console.log("erreur ds le fetch", error)

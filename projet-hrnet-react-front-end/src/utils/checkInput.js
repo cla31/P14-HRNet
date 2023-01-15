@@ -12,20 +12,7 @@ export const checkInputName = (value, setError) => {
     }
 }
 
-// export const checkDate = (value, setError) => {
-//     // console.log('valeur de la date', value)
-//     let dateInput = new Date(value)
-//     let timestampInput = dateInput.getTime()
-//     let dateNow = Date.now()
-//         // console.log('valeur de date now()', dateNow)
-//         // console.log('valeur de la date input', timestampInput)
-//     if (timestampInput < dateNow) {
-//         setError('')
-//         return true
-//     } else {
-//         return setError('this date is not possible')
-//     }
-// }
+
 export const validateSelectionState = (selection, validValues, setError) => {
     // console.log("valeur de la selection",selection)
     // console.log("valides values",validValues)
@@ -89,3 +76,29 @@ export const checkZipCode = (value, setError) => {
         return true
     }
 }
+
+export const emailChecker = (value, setError) => {
+    if (value === '') {
+        setError("The field must be filled");
+
+    } else if (!value.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+        setError("email is not valid");
+
+    } else {
+        setError("", true);
+        return true;
+    }
+};
+
+export const passwordChecker = (value, setError) => {
+    if (value === '') {
+        setError("The field must be filled");
+    } else if (value.length < 8) {
+        setError("password must be at least 8 characters");
+    } else if (!value.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+        setError("password must contain at least one letter and one number");
+    } else {
+        setError("", true);
+        return true;
+    }
+};

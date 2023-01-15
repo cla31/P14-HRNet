@@ -5,20 +5,20 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { states } from '../datas/states'
 import { departments } from '../datas/departments'
 import Dropdown from '../components/Dropdown'
-// import Modale from '../components/Modale'
 import { Modal } from 'modal-lib-claire-marie'
 import { useDispatch } from 'react-redux'
 import { addEmployees } from '../redux/redux'
 import { Link } from 'react-router-dom'
 import '../style/components/form.css'
-import 'react-datepicker/dist/react-datepicker.css'
-import { checkInputName } from '../utils/checkInput'
-// import { checkDate } from '../utils/checkInput'
-import { validateSelectionState } from '../utils/checkInput'
-import { validateSelectionDepartment } from '../utils/checkInput'
-import { checkCity } from '../utils/checkInput'
-import { checkStreet } from '../utils/checkInput'
-import { checkZipCode } from '../utils/checkInput'
+
+import {
+  checkInputName,
+  validateSelectionState,
+  validateSelectionDepartment,
+  checkCity,
+  checkStreet,
+  checkZipCode,
+} from '../utils/checkInput'
 import iconeValidation from '../assets/validation.svg'
 
 const Form = () => {
@@ -50,8 +50,6 @@ const Form = () => {
   const [zipcod, setZipcod] = useState('')
   const [errorMessageFirst, setErrorMessageFirst] = useState('')
   const [errorMessageLast, setErrorMessageLast] = useState('')
-  // const [errorMessageBirthDate, setErrorMessageBirthDate] = useState('')
-  // const [errorMessageStartDate, setErrorMessageStartDate] = useState('')
   const [errorMessageSelectionState, setErrorMessageSelectionState] =
     useState('')
   const [errorMessageSelectionDepartment, setErrorMessageSelectionDepartment] =
