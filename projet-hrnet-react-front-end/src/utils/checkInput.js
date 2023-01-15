@@ -102,3 +102,14 @@ export const passwordChecker = (value, setError) => {
         return true;
     }
 };
+
+export const checkDate = (value, setError) => {
+    // console.log('valeur de la date', value)
+    if (value === undefined) {
+        setError("The field must be filled");
+
+    } else {
+        setError("", true);
+        return true;
+    }
+}

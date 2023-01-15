@@ -18,6 +18,7 @@ import {
   checkCity,
   checkStreet,
   checkZipCode,
+  checkDate,
 } from '../utils/checkInput'
 import iconeValidation from '../assets/validation.svg'
 
@@ -57,6 +58,8 @@ const Form = () => {
   const [errorMessageStreet, setErrorMessageStreet] = useState('')
   const [errorMessageCity, setErrorMessageCity] = useState('')
   const [errorMessageZipCode, setErrorMessageZipCode] = useState('')
+  const [errorMessageBirthDate, setErrorMessageBirthDate] = useState('')
+  const [errorMessageStartDate, setErrorMessageStartDate] = useState('')
 
   const newEmployeeDatas = {
     firstName: firstname,
@@ -72,13 +75,26 @@ const Form = () => {
 
   const save = (e) => {
     e.preventDefault()
-    const birthDateFormated = birthDate.toISOString().replace(/\.\d{3}Z$/, 'Z')
-    newEmployeeDatas.birthDate = birthDateFormated
-    const startDateFormated = startDate.toISOString().replace(/\.\d{3}Z$/, 'Z')
-    newEmployeeDatas.startDate = startDateFormated
+
+    const birthDateFormated = () => {
+      if (birthDate) {
+        return birthDate.toISOString().replace(/\.\d{3}Z$/, 'Z')
+      }
+    }
+    console.log('birth foooorm', birthDateFormated())
+    newEmployeeDatas.birthDate = birthDateFormated()
+    const startDateFormated = () => {
+      if (startDate) {
+        return startDate.toISOString().replace(/\.\d{3}Z$/, 'Z')
+      }
+    }
+
+    newEmployeeDatas.startDate = startDateFormated()
 
     checkInputName(newEmployeeDatas.firstName, setErrorMessageFirst)
     checkInputName(newEmployeeDatas.lastName, setErrorMessageLast)
+    checkDate(birthDateFormated(), setErrorMessageBirthDate)
+    checkDate(startDateFormated(), setErrorMessageStartDate)
     validateSelectionState(
       newEmployeeDatas.state,
       states,
@@ -107,6 +123,8 @@ const Form = () => {
       ) &&
       checkCity(newEmployeeDatas.city, setErrorMessageCity) &&
       checkStreet(newEmployeeDatas.street, setErrorMessageStreet) &&
+      checkDate(birthDateFormated(), setErrorMessageBirthDate) &&
+      checkDate(startDateFormated(), setErrorMessageStartDate) &&
       checkZipCode(newEmployeeDatas.zipcod, setErrorMessageZipCode) === true
     ) {
       // console.log('New Employee State1', newEmployeeDatas.state)
@@ -191,9 +209,9 @@ const Form = () => {
               required="required"
             />
           </div>
-          {/* {errorMessageBirthDate && (
+          {errorMessageBirthDate && (
             <div className="error-message">{errorMessageBirthDate}</div>
-          )} */}
+          )}
           <div className="datepicker-start">
             <DatePicker
               id="start-date"
@@ -205,9 +223,9 @@ const Form = () => {
               required="required"
             />
           </div>
-          {/* {errorMessageStartDate && (
+          {errorMessageStartDate && (
             <div className="error-message">{errorMessageStartDate}</div>
-          )} */}
+          )}
         </div>
         <fieldset className="address">
           <div className="legend-address">
