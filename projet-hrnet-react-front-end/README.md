@@ -14,7 +14,16 @@
 
 # Project 14 - HRnet
 
-Welcome to HRnet! Our company's internal application to create and view employee records.
+Welcome to HRnet! Our company's internal application to create and view employees records.
+
+---
+
+## Installing the app
+
+- Forke and clone the repository : `https://github.com/cla31/P14-HRNet/tree/main/projet-hrnet-react-front-end`
+- Open a new terminal
+- Run `cd projet-hrnet-react-front-end`
+- Then run the `yarn start` command that will allow you to run the application on http://localhost:3000
 
 ---
 
