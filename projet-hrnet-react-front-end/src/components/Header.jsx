@@ -3,6 +3,12 @@ import { useLocation } from 'react-router-dom'
 import '../style/components/header.css'
 import { Link } from 'react-router-dom'
 
+/**
+ * @fileoverview Header component of the application
+ * Header component
+ * @description This component displays the navigation bar of the application and allows the user to access the login page.
+ */
+
 const Header = () => {
   let page = useLocation()
   //   console.log('nom de la page', page)

@@ -1,14 +1,19 @@
+/**
+    @file Service to fetch data from the backend
+    @function getDatasEmployees
+*/
+
 export const getDatasEmployees = async() => {
     try {
-        const fetchJson = await fetch('/employeesDatas.json', {
+        const fetchEmployees = await fetch('/employeesDatas.json', {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
             },
         })
-        const backFetch = await fetchJson.json()
+        const employeesFromBackEnd = await fetchEmployees.json()
             // console.log("réponse de backFetch", backFetch)  
-        return backFetch;
+        return employeesFromBackEnd;
     } catch (error) {
         // console.log("erreur ds le fetch", error)
         throw error

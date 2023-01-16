@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/FormLogin.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/FormLogin.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import '../style/components/formLogin.css'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import {
+  checkInputName,
+  emailChecker,
+  passwordChecker,
+} from '../utils/checkInput'
+import { Modal } from 'modal-lib-claire-marie'
+import iconeValidation from '../assets/validationSignUp.svg'
+
+/**
+ * @fileoverview Renders a form to login and sign up
+ * FormLogin component
+ * @function
+ * Handle the form to login and sign up
+ */
+
+const FormLogin = () => {
+  const navigate = useNavigate()
+  const [userName, setUserName] = useState('')
+  const [errorMessageUserName, setErrorMessageUserName] = useState('')
+  const [email, setEmail] = useState('')
+  const [errorEmail, setErrorEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [errorPassword, setErrorPassword] = useState('')
+  const [showModal, setShowModal] = useState(false)
+
+  const closeModal = () => {
+    setShowModal(false)
+    window.location.reload(true)
+  }
+
+  const login = (e) => {
+    e.preventDefault()
+    navigate('/')
+  }
+  const signUp = (e) => {
+    e.preventDefault()
+    checkInputName(userName, setErrorMessageUserName)
+    emailChecker(email, setErrorEmail)
+    passwordChecker(password, setErrorPassword)
+    if (
+      checkInputName(userName, setErrorMessageUserName) &amp;&amp;
+      emailChecker(email, setErrorEmail) &amp;&amp;
+      passwordChecker(password, setErrorPassword)
+    ) {
+      setShowModal(true)
+    }
+  }
+
+  return (
+    &lt;div className="main-login">
+      &lt;input type="checkbox" id="chk" aria-hidden="true" defaultChecked />
+      &lt;div className="signup">
+        &lt;form>
+          &lt;label className="login-label" htmlFor="chk" aria-hidden="true">
+            Sign up
+          &lt;/label>
+          &lt;input
+            className="login-input"
+            type="text"
+            name="txt"
+            placeholder="User name"
+            required=""
+            onChange={(e) => setUserName(e.target.value)}
+          />
+          {errorMessageUserName &amp;&amp; (
+            &lt;div className="error-message">{errorMessageUserName}&lt;/div>
+          )}
+          &lt;input
+            className="login-input"
+            type="email"
+            name="email"
+            placeholder="Email"
+            required=""
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          &lt;div className="error-message">{errorEmail}&lt;/div>
+
+          &lt;input
+            className="login-input"
+            type="password"
+            name="pswd"
+            placeholder="Password"
+            required=""
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          &lt;div className="error-message">{errorPassword}&lt;/div>
+          &lt;button className="login-button" onClick={signUp}>
+            Sign up
+          &lt;/button>
+        &lt;/form>
+      &lt;/div>
+      &lt;div className="login">
+        &lt;form>
+          &lt;label className="login-label" htmlFor="chk" aria-hidden="true">
+            Login
+          &lt;/label>
+          &lt;input
+            className="login-input"
+            type="email"
+            name="email"
+            placeholder="Email"
+            required=""
+          />
+          &lt;input
+            className="login-input"
+            type="password"
+            name="pswd"
+            placeholder="Password"
+            required=""
+          />
+        &lt;/form>
+        &lt;button className="login-button" onClick={login}>
+          Login
+        &lt;/button>
+      &lt;/div>
+      {showModal &amp;&amp; (
+        &lt;Modal
+          messageModal={'Employee created!'}
+          messageBouton={'Close'}
+          functionButton={closeModal}
+          image={iconeValidation}
+          ContentModalStyle={{
+            color: '#001730',
+            background: '#001730',
+            width: '90%',
+          }}
+          buttonStyle={{ backgroundColor: '#001730' }}
+          ContainerModalStyle={{
+            height: '90%',
+          }}
+          ImageModalStyle={{ width: '200px', height: '200px' }}
+        />
+      )}
+    &lt;/div>
+  )
+}
+
+export default FormLogin
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-DATAS.html">DATAS</a></li><li><a href="module-departments.html">departments</a></li><li><a href="module-numberFilterOptions.html">numberFilterOptions</a></li><li><a href="module-states.html">states</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#Handletheformtocreateanewemployee">Handle the form to create a new employee</a></li><li><a href="global.html#Handletheformtologinandsignup">Handle the form to login and sign up</a></li><li><a href="global.html#Handletheglobalfilterforatable">Handle the global filter for a table</a></li><li><a href="global.html#components/ColumnFilter.jsx">components/ColumnFilter.jsx</a></li><li><a href="global.html#components/Dropdown.jsx">components/Dropdown.jsx</a></li><li><a href="global.html#getDatasEmployees">getDatasEmployees</a></li><li><a href="global.html#index.js">index.js</a></li><li><a href="global.html#passwordChecker">passwordChecker</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Jan 16 2023 20:54:05 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

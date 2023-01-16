@@ -6,8 +6,14 @@ import { useEffect } from 'react'
 import Loader from '../components/Loader'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { getEmployees } from '../redux/redux.js'
+import { getEmployees } from '../redux/employees.slice.js'
 import { useSelector } from 'react-redux'
+
+/**
+    @fileoverview Home page component
+    Home component
+    @description This component displays a form and calls a list of employees
+ */
 
 const Home = () => {
   const isLoading = useSelector((state) => state.employees.isLoading)

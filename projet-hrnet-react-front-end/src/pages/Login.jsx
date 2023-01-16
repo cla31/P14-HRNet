@@ -3,6 +3,13 @@ import FormLogin from '../components/FormLogin'
 import logo from '../assets/logo.png'
 import '../style/pages/login.css'
 
+/**
+    @fileoverview Login page component
+    Login component
+    @see {@link FormLogin}
+    @description This component displays a page for the user to connect via a form
+ */
+
 const Login = () => {
   return (
     <div className="body-login">

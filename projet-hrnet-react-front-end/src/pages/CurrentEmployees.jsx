@@ -4,6 +4,12 @@ import '../style/pages/CurrentEmployees.css'
 import logo from '../assets/logo.png'
 import Table from '../components/Table'
 
+/** 
+    @fileoverview  Current Employees Page Component
+    CurrentEmployees component
+    @description The page displays current employees in a table
+*/
+
 const CurrentEmployee = () => {
   return (
     <div className="body-table">

@@ -1,3 +1,9 @@
+/**
+ *  @fileoverview States filter options for the application
+    @module states
+    @description This file contains a list of US states with their name and abbreviation
+*/
+
 export const states = [{
         "name": "Select state"
     },

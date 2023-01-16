@@ -19,6 +19,13 @@ import { ColumnFilter } from '../components/ColumnFilter'
 //Penser à installer date-fns pour le formatage des dates:!!
 //https://date-fns.org/docs/Getting-Started#installation
 
+/**
+
+    @fileoverview Table component of the application
+    Table component
+    @description This component displays a table of employees data and allows for sorting, filtering, and pagination of the data.
+ */
+
 const Table = () => {
   const columns = useMemo(() => COLUMNS, []) // memorize before adding to useTable hook
 

@@ -10,6 +10,13 @@ import {
 import { Modal } from 'modal-lib-claire-marie'
 import iconeValidation from '../assets/validationSignUp.svg'
 
+/**
+ * @fileoverview Renders a form to login and sign up
+ * FormLogin component
+ * @function
+ * Handle the form to login and sign up
+ */
+
 const FormLogin = () => {
   const navigate = useNavigate()
   const [userName, setUserName] = useState('')

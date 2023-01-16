@@ -3,7 +3,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import { configureStore } from "@reduxjs/toolkit";
 
-
+/**
+    @file Redux store for employees management
+    @see {@link getDatasEmployees}
+    @see {@link createAsyncThunk}
+    @see {@link createSlice}
+    @see {@link configureStore}
+*/
 
 
 

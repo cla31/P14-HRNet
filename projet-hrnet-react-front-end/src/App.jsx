@@ -1,12 +1,17 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import CurrentEmployee from './pages/CurrentEmployee'
+import CurrentEmployee from './pages/CurrentEmployees'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import PageError from './pages/PageError'
 import { Provider } from 'react-redux'
-import { store } from './redux/redux'
+import { store } from './redux/employees.slice.js'
 import './App.css'
 import Header from './components/Header'
+/**
+    @file Main component of the application
+    @function App
+*/
+
 const App = () => {
   return (
     <Provider store={store}>

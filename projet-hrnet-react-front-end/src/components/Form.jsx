@@ -7,7 +7,7 @@ import { departments } from '../datas/departments'
 import Dropdown from '../components/Dropdown'
 import { Modal } from 'modal-lib-claire-marie'
 import { useDispatch } from 'react-redux'
-import { addEmployees } from '../redux/redux'
+import { addEmployees } from '../redux/employees.slice'
 import { Link } from 'react-router-dom'
 import '../style/components/form.css'
 
@@ -21,6 +21,12 @@ import {
   checkDate,
 } from '../utils/checkInput'
 import iconeValidation from '../assets/validation.svg'
+/**
+ * @fileoverview Renders a form to add new employee
+ * Form component
+ * @function
+ * Handle the form to create a new employee
+ */
 
 const Form = () => {
   const dispatch = useDispatch()
@@ -81,7 +87,7 @@ const Form = () => {
         return birthDate.toISOString().replace(/\.\d{3}Z$/, 'Z')
       }
     }
-    console.log('birth foooorm', birthDateFormated())
+    // console.log('birth foooorm', birthDateFormated())
     newEmployeeDatas.birthDate = birthDateFormated()
     const startDateFormated = () => {
       if (startDate) {

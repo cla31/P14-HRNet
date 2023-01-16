@@ -1,3 +1,17 @@
+/**
+@file Form validation functions
+@function checkInputName
+@function validateSelectionState
+@function validateSelectionDepartment
+@function checkCity
+@function checkStreet
+@function checkZipCode
+@function emailChecker
+@function passwordChecker
+*/
+
+
+
 export const checkInputName = (value, setError) => {
     // console.log("Valeur dans check first",value)
     if (!value) {

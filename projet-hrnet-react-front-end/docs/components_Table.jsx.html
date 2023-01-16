@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Table.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Table.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useMemo } from 'react'
+import '../style/components/table.css'
+import { DATAS } from '../datas/mockDatasTable'
+import { COLUMNS } from '../utils/columns'
+import { useSelector } from 'react-redux'
+// import { format } from "date-fns";
+//Essaie réparation: test version avec les données du state et la librairie
+//Comme une nouvelle ligne écrase la précédente..
+import {
+  useTable,
+  useSortBy,
+  useFilters,
+  useGlobalFilter,
+  usePagination,
+} from 'react-table'
+import { GlobalFilter } from '../components/GlobalFilter'
+import { ColumnFilter } from '../components/ColumnFilter'
+// cf: https://blog.openreplay.com/better-tables-with-react-table/
+//Penser à installer date-fns pour le formatage des dates:!!
+//https://date-fns.org/docs/Getting-Started#installation
+
+/**
+
+    @fileoverview Table component of the application
+    Table component
+    @description This component displays a table of employees data and allows for sorting, filtering, and pagination of the data.
+ */
+
+const Table = () => {
+  const columns = useMemo(() => COLUMNS, []) // memorize before adding to useTable hook
+
+  const stateEmployeesAdded = useSelector(
+    (state) => state.employees.employeesAdded
+  )
+  // console.log('les employés ajoutés ds le state', stateEmployeesAdded)
+
+  // VISUALISATION DU TABLEAU EN UTILISANT LES DONNEES MOCKEES::::::
+  // const data = useMemo(() => DATAS, []) // memorize before adding to useTable hook
+  // console.log('data', data)
+
+  //VISUALISATION DU TABLEAU EN UTILISANT LES DONNEES DU FORM::::::
+  const data = useMemo(() => stateEmployeesAdded, [])
+
+  //Code affichage tableau avec la librairie
+
+  const defaultColumn = useMemo(() => {
+    return {
+      Filter: ColumnFilter,
+    }
+  }, [])
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    setGlobalFilter,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize, globalFilter },
+  } = useTable(
+    {
+      columns, // useTable hook takes in memoized columns and data to be displayed
+      data,
+      defaultColumn, // add defaultColumn
+    },
+    useFilters, // add useFilters above useGlobalFilter
+    useGlobalFilter,
+    useSortBy, // this adds sorting feature to the table instance
+    usePagination
+  )
+
+  return (
+    &lt;>
+      &lt;div className="section-film-search">
+        &lt;div className="container-filter">
+          &lt;select
+            value={pageSize}
+            onChange={(e) => {
+              setPageSize(Number(e.target.value))
+            }}
+          >
+            {[10, 20, 30, 40, 50].map((pageSize) => (
+              &lt;option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              &lt;/option>
+            ))}
+          &lt;/select>
+        &lt;/div>
+        &lt;GlobalFilter
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        />
+      &lt;/div>
+      {/* apply the table props */}
+      &lt;div className="table">
+        &lt;table {...getTableProps()}>
+          &lt;thead>
+            {
+              // Loop over the header rows
+              headerGroups.map((headerGroup) => (
+                // Apply the header row props
+                &lt;tr {...headerGroup.getHeaderGroupProps()}>
+                  {
+                    // Loop over the headers in each row
+                    headerGroup.headers.map((column) => (
+                      // Apply the header cell props
+                      &lt;th
+                        {...column.getHeaderProps(
+                          column.getSortByToggleProps()
+                        )}
+                      >
+                        {column.render('Header')}
+                        &lt;span className="custom-filter">
+                          {column.isSorted
+                            ? column.isSortedDesc
+                              ? ' ▼'
+                              : ' ▲'
+                            : ' ▲'}
+                        &lt;/span>
+                        &lt;div>
+                          {column.canFilter ? column.render('Filter') : null}
+                        &lt;/div>{' '}
+                        {/*Add column filter component in each column header  */}
+                      &lt;/th>
+                    ))
+                  }
+                &lt;/tr>
+              ))
+            }
+          &lt;/thead>
+          {/* Apply the table body props */}
+          &lt;tbody {...getTableBodyProps()}>
+            {
+              // Loop over the table rows
+              page.map((row, i) => {
+                // Prepare the row for display
+                prepareRow(row)
+                return (
+                  &lt;tr {...row.getRowProps()}>
+                    {
+                      // Loop over the rows cells
+                      row.cells.map((cell) => {
+                        // Apply the cell props
+                        return (
+                          &lt;td {...cell.getCellProps()}>
+                            {cell.render('Cell')}
+                          &lt;/td>
+                        )
+                      })
+                    }
+                  &lt;/tr>
+                )
+              })
+            }
+          &lt;/tbody>
+        &lt;/table>
+      &lt;/div>
+      &lt;div className="navigation-table">
+        &lt;div className="pagination" style={{ marginTop: '1rem' }}>
+          &lt;div className="button-pagination">
+            &lt;button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+              {'&lt;&lt;'}
+            &lt;/button>{' '}
+            &lt;button onClick={() => previousPage()} disabled={!canPreviousPage}>
+              {'&lt;'}
+            &lt;/button>{' '}
+            &lt;button onClick={() => nextPage()} disabled={!canNextPage}>
+              {'>'}
+            &lt;/button>{' '}
+            &lt;button
+              onClick={() => gotoPage(pageCount - 1)}
+              disabled={!canNextPage}
+            >
+              {'>>'}
+            &lt;/button>{' '}
+          &lt;/div>
+          &lt;div className="navigation-input">
+            &lt;span className="page-n-of-n">
+              Page{' '}
+              &lt;strong>
+                {pageIndex + 1} of {pageOptions.length}
+              &lt;/strong>{' '}
+            &lt;/span>
+            &lt;span className="go-to-page">
+              Go to page:{''}
+              &lt;input
+                type="number"
+                defaultValue={pageIndex + 1}
+                onChange={(e) => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0
+                  gotoPage(page)
+                }}
+                style={{ width: '100px' }}
+              />
+            &lt;/span>{' '}
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
+    &lt;/>
+  )
+}
+
+export default Table
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-DATAS.html">DATAS</a></li><li><a href="module-departments.html">departments</a></li><li><a href="module-numberFilterOptions.html">numberFilterOptions</a></li><li><a href="module-states.html">states</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#Handletheformtocreateanewemployee">Handle the form to create a new employee</a></li><li><a href="global.html#Handletheformtologinandsignup">Handle the form to login and sign up</a></li><li><a href="global.html#Handletheglobalfilterforatable">Handle the global filter for a table</a></li><li><a href="global.html#components/ColumnFilter.jsx">components/ColumnFilter.jsx</a></li><li><a href="global.html#components/Dropdown.jsx">components/Dropdown.jsx</a></li><li><a href="global.html#getDatasEmployees">getDatasEmployees</a></li><li><a href="global.html#index.js">index.js</a></li><li><a href="global.html#passwordChecker">passwordChecker</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Jan 16 2023 20:54:05 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

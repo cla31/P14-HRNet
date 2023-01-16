@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/Form.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/Form.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import DatePicker from 'react-datepicker'
+import { useState } from 'react'
+import 'react-datepicker/dist/react-datepicker.css'
+import { states } from '../datas/states'
+import { departments } from '../datas/departments'
+import Dropdown from '../components/Dropdown'
+import { Modal } from 'modal-lib-claire-marie'
+import { useDispatch } from 'react-redux'
+import { addEmployees } from '../redux/employees.slice'
+import { Link } from 'react-router-dom'
+import '../style/components/form.css'
+
+import {
+  checkInputName,
+  validateSelectionState,
+  validateSelectionDepartment,
+  checkCity,
+  checkStreet,
+  checkZipCode,
+  checkDate,
+} from '../utils/checkInput'
+import iconeValidation from '../assets/validation.svg'
+/**
+ * @fileoverview Renders a form to add new employee
+ * Form component
+ * @function
+ * Handle the form to create a new employee
+ */
+
+const Form = () => {
+  const dispatch = useDispatch()
+  //Gestion du dropdow "states"
+  let arrayStatesFilter = []
+
+  const statesFilter = (states) => {
+    states.map((state) => arrayStatesFilter.push(state.name))
+    return arrayStatesFilter
+  }
+
+  const statesName = statesFilter(states)
+
+  const closeModal = () => {
+    setShowModal(false)
+  }
+
+  //gestion de l'état du formulaire
+  const [showModal, setShowModal] = useState(false)
+  const [birthDate, setBirthDate] = useState('')
+  const [startDate, setStartDate] = useState('')
+  const [firstname, setFirstname] = useState('')
+  const [department, setDepartment] = useState('')
+  const [lastname, setLastname] = useState('')
+  const [street, setStreet] = useState('')
+  const [city, setCity] = useState('')
+  const [state, setState] = useState('')
+  const [zipcod, setZipcod] = useState('')
+  const [errorMessageFirst, setErrorMessageFirst] = useState('')
+  const [errorMessageLast, setErrorMessageLast] = useState('')
+  const [errorMessageSelectionState, setErrorMessageSelectionState] =
+    useState('')
+  const [errorMessageSelectionDepartment, setErrorMessageSelectionDepartment] =
+    useState('')
+  const [errorMessageStreet, setErrorMessageStreet] = useState('')
+  const [errorMessageCity, setErrorMessageCity] = useState('')
+  const [errorMessageZipCode, setErrorMessageZipCode] = useState('')
+  const [errorMessageBirthDate, setErrorMessageBirthDate] = useState('')
+  const [errorMessageStartDate, setErrorMessageStartDate] = useState('')
+
+  const newEmployeeDatas = {
+    firstName: firstname,
+    lastName: lastname,
+    birthDate: new Date(birthDate),
+    department: department,
+    startDate: new Date(startDate),
+    street: street,
+    city: city,
+    state: state,
+    zipcod: zipcod,
+  }
+
+  const save = (e) => {
+    e.preventDefault()
+
+    const birthDateFormated = () => {
+      if (birthDate) {
+        return birthDate.toISOString().replace(/\.\d{3}Z$/, 'Z')
+      }
+    }
+    // console.log('birth foooorm', birthDateFormated())
+    newEmployeeDatas.birthDate = birthDateFormated()
+    const startDateFormated = () => {
+      if (startDate) {
+        return startDate.toISOString().replace(/\.\d{3}Z$/, 'Z')
+      }
+    }
+
+    newEmployeeDatas.startDate = startDateFormated()
+
+    checkInputName(newEmployeeDatas.firstName, setErrorMessageFirst)
+    checkInputName(newEmployeeDatas.lastName, setErrorMessageLast)
+    checkDate(birthDateFormated(), setErrorMessageBirthDate)
+    checkDate(startDateFormated(), setErrorMessageStartDate)
+    validateSelectionState(
+      newEmployeeDatas.state,
+      states,
+      setErrorMessageSelectionState
+    )
+    validateSelectionDepartment(
+      newEmployeeDatas.department,
+      departments,
+      setErrorMessageSelectionDepartment
+    )
+    checkCity(newEmployeeDatas.city, setErrorMessageCity)
+    checkStreet(newEmployeeDatas.street, setErrorMessageStreet)
+    checkZipCode(newEmployeeDatas.zipcod, setErrorMessageZipCode)
+    if (
+      checkInputName(newEmployeeDatas.firstName, setErrorMessageFirst) &amp;&amp;
+      checkInputName(newEmployeeDatas.lastName, setErrorMessageLast) &amp;&amp;
+      validateSelectionState(
+        newEmployeeDatas.state,
+        states,
+        setErrorMessageSelectionState
+      ) &amp;&amp;
+      validateSelectionDepartment(
+        newEmployeeDatas.department,
+        departments,
+        setErrorMessageSelectionDepartment
+      ) &amp;&amp;
+      checkCity(newEmployeeDatas.city, setErrorMessageCity) &amp;&amp;
+      checkStreet(newEmployeeDatas.street, setErrorMessageStreet) &amp;&amp;
+      checkDate(birthDateFormated(), setErrorMessageBirthDate) &amp;&amp;
+      checkDate(startDateFormated(), setErrorMessageStartDate) &amp;&amp;
+      checkZipCode(newEmployeeDatas.zipcod, setErrorMessageZipCode) === true
+    ) {
+      // console.log('New Employee State1', newEmployeeDatas.state)
+      const acronymeState = states.find(
+        (obj) => obj.name === newEmployeeDatas.state
+      ).abbreviation
+      // console.log('Acronyme State', acronymeState)
+      newEmployeeDatas.state = acronymeState
+      // console.log('New Employee State2', newEmployeeDatas.state)
+      if (newEmployeeDatas.state === acronymeState)
+        dispatch(addEmployees(newEmployeeDatas))
+      setShowModal(true)
+      document.getElementById('create-employee').reset()
+      setBirthDate('')
+      setStartDate('')
+    }
+  }
+
+  const handleChangeDepartment = (event) => {
+    const selectedValue = event.target.value
+    setDepartment(selectedValue)
+    // console.log('Valeur selectionnée', selectedValue)
+  }
+
+  //evènements du formulaire
+  const handleChangeState = (event) => {
+    const selectedValue = event.target.value
+    setState(selectedValue)
+  }
+
+  const handleChangeBirthDate = (date) => {
+    return setBirthDate(date)
+  }
+  const handleChangeStartDate = (date) => {
+    return setStartDate(date)
+  }
+
+  return (
+    &lt;div className="container-form">
+      &lt;div className="link-table">
+        &lt;Link to="/CurrentEmployee">-View Current Employees-&lt;/Link>
+      &lt;/div>
+      &lt;div className="title-form">
+        &lt;h2>Create Employee&lt;/h2>
+      &lt;/div>
+      &lt;form action="#" id="create-employee" autoComplete="off">
+        &lt;div className="input-fn">
+          &lt;input
+            type="text"
+            id="first-name"
+            name="first"
+            placeholder="First Name"
+            onChange={(e) => setFirstname(e.target.value)}
+            required="required"
+          />
+        &lt;/div>
+        {errorMessageFirst &amp;&amp; (
+          &lt;div className="error-message">{errorMessageFirst}&lt;/div>
+        )}
+        &lt;div className="input-ln">
+          &lt;input
+            type="text"
+            id="last-name"
+            name="last"
+            placeholder="Last Name"
+            onChange={(e) => setLastname(e.target.value)}
+            required="required"
+          />
+        &lt;/div>
+        {errorMessageLast &amp;&amp; (
+          &lt;div className="error-message">{errorMessageLast}&lt;/div>
+        )}
+        &lt;div className="dates">
+          &lt;div className="datepicker-birth">
+            &lt;DatePicker
+              id="date-of-birth"
+              allowInput={true}
+              selected={birthDate}
+              placeholderText="Birth Date"
+              onChange={handleChangeBirthDate}
+              dateFormat="dd/MM/yyyy"
+              required="required"
+            />
+          &lt;/div>
+          {errorMessageBirthDate &amp;&amp; (
+            &lt;div className="error-message">{errorMessageBirthDate}&lt;/div>
+          )}
+          &lt;div className="datepicker-start">
+            &lt;DatePicker
+              id="start-date"
+              allowInput={true}
+              selected={startDate}
+              placeholderText="Start Date"
+              onChange={handleChangeStartDate}
+              dateFormat="dd/MM/yyyy"
+              required="required"
+            />
+          &lt;/div>
+          {errorMessageStartDate &amp;&amp; (
+            &lt;div className="error-message">{errorMessageStartDate}&lt;/div>
+          )}
+        &lt;/div>
+        &lt;fieldset className="address">
+          &lt;div className="legend-address">
+            &lt;legend>Address&lt;/legend>
+          &lt;/div>
+          &lt;div className="input-street">
+            &lt;input
+              id="street"
+              type="text"
+              placeholder="Street"
+              onChange={(e) => setStreet(e.target.value)}
+              required="required"
+            />
+          &lt;/div>
+          {errorMessageStreet &amp;&amp; (
+            &lt;div className="error-message">{errorMessageStreet}&lt;/div>
+          )}
+          &lt;div className="input-city">
+            &lt;input
+              id="city"
+              type="text"
+              placeholder="City"
+              onChange={(e) => setCity(e.target.value)}
+              required="required"
+            />
+          &lt;/div>
+          {errorMessageCity &amp;&amp; (
+            &lt;div className="error-message">{errorMessageCity}&lt;/div>
+          )}
+          &lt;div className="state-zipcode">
+            &lt;div className="select-state">
+              &lt;Dropdown
+                className="state"
+                datas={statesName}
+                listenOption={handleChangeState}
+                colorDropdownSelect="white"
+              />
+              {errorMessageSelectionState &amp;&amp; (
+                &lt;div className="error-message">
+                  {errorMessageSelectionState}
+                &lt;/div>
+              )}
+            &lt;/div>
+
+            &lt;div className="zipcode">
+              &lt;input
+                id="zip-code"
+                type="number"
+                placeholder="Zipcode"
+                onChange={(e) => setZipcod(e.target.value)}
+                required="required"
+              />
+              {errorMessageZipCode &amp;&amp; (
+                &lt;div className="error-message">{errorMessageZipCode}&lt;/div>
+              )}
+            &lt;/div>
+          &lt;/div>
+        &lt;/fieldset>
+        &lt;div className="select-department">
+          &lt;Dropdown
+            datas={departments}
+            listenOption={handleChangeDepartment}
+            colorDropdownSelect="white"
+          />
+        &lt;/div>
+        {errorMessageSelectionDepartment &amp;&amp; (
+          &lt;div className="error-message">{errorMessageSelectionDepartment}&lt;/div>
+        )}
+      &lt;/form>
+      &lt;div className="save-button">
+        &lt;button type="submit" onClick={save}>
+          Save
+        &lt;/button>
+      &lt;/div>
+      {showModal &amp;&amp; (
+        &lt;Modal
+          messageModal={'Employee created!'}
+          messageBouton={'Close'}
+          functionButton={closeModal}
+          image={iconeValidation}
+          ContentModalStyle={{ color: '#001730', background: '#e2d4ca' }}
+          buttonStyle={{ backgroundColor: '#001730' }}
+          ContainerModalStyle={{ height: '90%' }}
+          ImageModalStyle={{ width: '100px', height: '100px' }}
+        />
+      )}
+
+      {/* &lt;Modal
+        messageModal={'Employee created!'}
+        messageBouton={'Close'}
+        functionButton={closeModal}
+        image={iconeValidation}
+        ContentModalStyle={{ color: '#001730', background: '#e2d4ca' }}
+        buttonStyle={{ backgroundColor: '#001730' }}
+        ContainerModalStyle={{ height: '90%' }}
+        ImageModalStyle={{ width: '100px', height: '100px' }}
+      /> */}
+    &lt;/div>
+  )
+}
+
+export default Form
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-DATAS.html">DATAS</a></li><li><a href="module-departments.html">departments</a></li><li><a href="module-numberFilterOptions.html">numberFilterOptions</a></li><li><a href="module-states.html">states</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#Handletheformtocreateanewemployee">Handle the form to create a new employee</a></li><li><a href="global.html#Handletheformtologinandsignup">Handle the form to login and sign up</a></li><li><a href="global.html#Handletheglobalfilterforatable">Handle the global filter for a table</a></li><li><a href="global.html#components/ColumnFilter.jsx">components/ColumnFilter.jsx</a></li><li><a href="global.html#components/Dropdown.jsx">components/Dropdown.jsx</a></li><li><a href="global.html#getDatasEmployees">getDatasEmployees</a></li><li><a href="global.html#index.js">index.js</a></li><li><a href="global.html#passwordChecker">passwordChecker</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Jan 16 2023 20:54:05 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
