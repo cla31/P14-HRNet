@@ -2,6 +2,7 @@
     "name": "projet-hrnet-react-front-end",
     "version": "0.1.0",
     "private": true,
+    "homepage": "https://cla31.github.io/P14-HRNet/tree/main/projet-hrnet-react-front-end",
     "dependencies": {
         "@fortawesome/free-solid-svg-icons": "^6.2.1",
         "@fortawesome/react-fontawesome": "^0.2.0",
@@ -28,7 +29,9 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "doc": "jsdoc -c jsdoc.json"
+        "doc": "jsdoc -c jsdoc.json",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
     "eslintConfig": {
         "extends": [
@@ -51,6 +54,7 @@
     "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
     "main": "index.js",
     "devDependencies": {
+        "gh-pages": "^4.0.0",
         "jsdoc": "^4.0.0"
     },
     "author": "",
