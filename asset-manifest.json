@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/P14-HRNet/tree/main/projet-hrnet-react-front-end/static/css/main.77ce895c.css",
+    "main.js": "/P14-HRNet/tree/main/projet-hrnet-react-front-end/static/js/main.3fb2b87a.js",
+    "static/js/787.8aa24d5a.chunk.js": "/P14-HRNet/tree/main/projet-hrnet-react-front-end/static/js/787.8aa24d5a.chunk.js",
+    "static/media/montagne.jpg": "/P14-HRNet/tree/main/projet-hrnet-react-front-end/static/media/montagne.8ae7785448b0b5b56a26.jpg",
+    "static/media/logo.png": "/P14-HRNet/tree/main/projet-hrnet-react-front-end/static/media/logo.2ae18efa0b6d6bd5e353.png",
+    "static/media/notFound.svg": "/P14-HRNet/tree/main/projet-hrnet-react-front-end/static/media/notFound.c907e653a3b09562dee6d28bd5ac3be1.svg",
+    "index.html": "/P14-HRNet/tree/main/projet-hrnet-react-front-end/index.html",
+    "static/media/validationSignUp.svg": "/P14-HRNet/tree/main/projet-hrnet-react-front-end/static/media/validationSignUp.4579c2ca5f784a9f2b8fb5be8d63ab1e.svg",
+    "static/media/validation.svg": "/P14-HRNet/tree/main/projet-hrnet-react-front-end/static/media/validation.cf72e720700fa72b15c3edd3afd1c1b1.svg",
+    "main.77ce895c.css.map": "/P14-HRNet/tree/main/projet-hrnet-react-front-end/static/css/main.77ce895c.css.map",
+    "main.3fb2b87a.js.map": "/P14-HRNet/tree/main/projet-hrnet-react-front-end/static/js/main.3fb2b87a.js.map",
+    "787.8aa24d5a.chunk.js.map": "/P14-HRNet/tree/main/projet-hrnet-react-front-end/static/js/787.8aa24d5a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.77ce895c.css",
+    "static/js/main.3fb2b87a.js"
+  ]
+}
