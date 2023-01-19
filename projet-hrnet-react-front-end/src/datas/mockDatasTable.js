@@ -1,9 +1,8 @@
 /**
-
-    @fileoverview Employee data for the application
-    @module DATAS
-    @description This file exports an array of employee data objects for use in the table component or other parts of the application.
-*/
+ * @fileoverview Employee data for the application
+ * @module DATAS
+ * @description This file exports an array of employee data objects for use in the table component or other parts of the application.
+ */
 
 export const DATAS = [{
         firstName: 'John',
