@@ -17,6 +17,8 @@ import { useSelector } from 'react-redux'
 
 const Home = () => {
   const isLoading = useSelector((state) => state.employees.isLoading)
+  const employees = useSelector((state) => state.employees.employees)
+
   // console.log(
   //   'state',
   //   useSelector((state) => state.employees.isLoading)
@@ -34,8 +36,10 @@ const Home = () => {
         navigate('/PageError')
       }
     }
-    getAllemployees()
-  }, [dispatch, navigate])
+    if (employees.length === 0) {
+      getAllemployees()
+    }
+  }, [dispatch, navigate, employees])
 
   return (
     <>

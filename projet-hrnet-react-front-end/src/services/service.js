@@ -19,20 +19,3 @@ export const getDatasEmployees = async() => {
         throw error
     }
 }
-
-// export const getDatasEmployees = async() => {
-//     try {
-//         setTimeout(async() => {
-//             const fetchEmployees = await fetch('/employeesDatas.json', {
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                     Accept: 'application/json',
-//                 },
-//             })
-//             const employeesFromBackEnd = await fetchEmployees.json()
-//             return employeesFromBackEnd;
-//         }, 2000)
-//     } catch (error) {
-//         throw error
-//     }
-// }

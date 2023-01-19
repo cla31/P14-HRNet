@@ -1,11 +1,7 @@
 import React, { useMemo } from 'react'
 import '../style/components/table.css'
-import { DATAS } from '../datas/mockDatasTable'
 import { COLUMNS } from '../utils/columns'
 import { useSelector } from 'react-redux'
-// import { format } from "date-fns";
-//Essaie réparation: test version avec les données du state et la librairie
-//Comme une nouvelle ligne écrase la précédente..
 import {
   useTable,
   useSortBy,
@@ -28,19 +24,10 @@ import { ColumnFilter } from '../components/ColumnFilter'
 
 const Table = () => {
   const columns = useMemo(() => COLUMNS, []) // memorize before adding to useTable hook
+  const stateEmployees = useSelector((state) => state.employees.employees)
+  console.log('les employés ajoutés ds le state', stateEmployees)
 
-  const stateEmployeesAdded = useSelector(
-    (state) => state.employees.employeesAdded
-  )
-  // console.log('les employés ajoutés ds le state', stateEmployeesAdded)
-
-  // VISUALISATION DU TABLEAU EN UTILISANT LES DONNEES MOCKEES::::::
-  // const data = useMemo(() => DATAS, []) // memorize before adding to useTable hook
-  // console.log('data', data)
-
-  //VISUALISATION DU TABLEAU EN UTILISANT LES DONNEES DU FORM::::::
-  const data = useMemo(() => stateEmployeesAdded, [])
-
+  const data = useMemo(() => stateEmployees, []) // memorize before adding to useTable hook
   //Code affichage tableau avec la librairie
 
   const defaultColumn = useMemo(() => {
