@@ -205,33 +205,37 @@ const Form = () => {
         )}
         <div className="dates">
           <div className="datepicker-birth">
-            <DatePicker
-              id="date-of-birth"
-              allowInput={true}
-              selected={birthDate}
-              placeholderText="Birth Date"
-              onChange={handleChangeBirthDate}
-              dateFormat="dd/MM/yyyy"
-              required="required"
-            />
+            <div className="handle-error">
+              <DatePicker
+                id="date-of-birth"
+                allowInput={true}
+                selected={birthDate}
+                placeholderText="Birth Date"
+                onChange={handleChangeBirthDate}
+                dateFormat="dd/MM/yyyy"
+                required="required"
+              />
+            </div>
+            {errorMessageBirthDate && (
+              <div className="error-message">{errorMessageBirthDate}</div>
+            )}
           </div>
-          {errorMessageBirthDate && (
-            <div className="error-message">{errorMessageBirthDate}</div>
-          )}
           <div className="datepicker-start">
-            <DatePicker
-              id="start-date"
-              allowInput={true}
-              selected={startDate}
-              placeholderText="Start Date"
-              onChange={handleChangeStartDate}
-              dateFormat="dd/MM/yyyy"
-              required="required"
-            />
+            <div className="handle-error">
+              <DatePicker
+                id="start-date"
+                allowInput={true}
+                selected={startDate}
+                placeholderText="Start Date"
+                onChange={handleChangeStartDate}
+                dateFormat="dd/MM/yyyy"
+                required="required"
+              />
+            </div>
+            {errorMessageStartDate && (
+              <div className="error-message">{errorMessageStartDate}</div>
+            )}
           </div>
-          {errorMessageStartDate && (
-            <div className="error-message">{errorMessageStartDate}</div>
-          )}
         </div>
         <fieldset className="address">
           <div className="legend-address">

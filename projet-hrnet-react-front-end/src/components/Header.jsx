@@ -16,9 +16,9 @@ const Header = () => {
     <nav className="main-nav">
       <div className="container-connexion">
         <Link
-          to="/Login"
+          to="/"
           className={
-            page.pathname === '/'
+            page.pathname === '/Home'
               ? 'class-home'
               : 'class-login-current-employees'
           }

@@ -3,19 +3,23 @@
     @function getDatasEmployees
 */
 
+
 export const getDatasEmployees = async() => {
-    try {
-        const fetchEmployees = await fetch('/employeesDatas.json', {
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-        })
-        const employeesFromBackEnd = await fetchEmployees.json()
-            // console.log("réponse de backFetch", backFetch)  
-        return employeesFromBackEnd;
-    } catch (error) {
-        // console.log("erreur ds le fetch", error)
-        throw error
-    }
+    return new Promise(async(resolve) => {
+        setTimeout(async() => {
+            try {
+                const fetchEmployees = await fetch('/employeesDatas.json', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: 'application/json',
+                    },
+                })
+                const employeesFromBackEnd = await fetchEmployees.json()
+                resolve(employeesFromBackEnd)
+            } catch (error) {
+                throw error
+            }
+
+        }, 2000)
+    });
 }

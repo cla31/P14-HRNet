@@ -3,6 +3,11 @@
     margin-left: 40px;
 }
 
+
+/* .handle-error {
+    border: 2px solid green;
+} */
+
 .container-form {
     position: relative;
     /* border: 2px solid green; */
@@ -264,7 +269,7 @@ fieldset {
 .select-state {
     width: 144px;
     /* border: 2px solid purple; */
-    height: 50px;
+    /* height: 50px; */
     margin-top: 6px;
     display: flex;
     flex-direction: column;
@@ -272,7 +277,7 @@ fieldset {
 
 .zipcode {
     /* border: 2px solid orangered; */
-    height: 50px;
+    /* height: 50px; */
     margin-top: 6px;
     margin-left: 15px;
     display: flex;

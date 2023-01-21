@@ -2,7 +2,6 @@ import { getDatasEmployees } from '../services/service'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import { configureStore } from "@reduxjs/toolkit"
-// import Employee from '../utils/employee'
 
 /**
     @file Redux store for employees management
@@ -17,10 +16,9 @@ import { configureStore } from "@reduxjs/toolkit"
 export const getEmployees = createAsyncThunk('employees/getEmployees', async(thunkAPI) => {
     try {
         const employees = await getDatasEmployees()
-        console.log('employés ds fichier Redux', employees)
+            // console.log('employés ds fichier Redux', employees)
         if (!employees) { return thunkAPI.rejectWithValue('error ') }
         return employees
-
     } catch (error) {
         //console.log('request failed 404 error ',error )        
         return thunkAPI.rejectWithValue(error)
@@ -67,10 +65,9 @@ export const employeesSlice = createSlice({
             })
             .addCase(getEmployees.fulfilled, (state, action) => {
                 state.isLoading = false
-                    // state.employees = action.payload.map((employe) => new Employee(employe))
                 state.employees = action.payload
-                console.log("payload objets", action.payload)
-                console.log("state employees", state.employees)
+                    // console.log("payload objets", action.payload)
+                    // console.log("state employees", state.employees)
             })
     }
 

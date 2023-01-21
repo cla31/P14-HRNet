@@ -41,6 +41,6 @@
 
 @media screen and (max-width: 768px) {
     .container-form-login {
-        width: 100%;
+        width: 320px;
     }
 }

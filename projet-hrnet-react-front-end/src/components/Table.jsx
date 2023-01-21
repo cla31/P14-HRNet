@@ -25,7 +25,7 @@ import { ColumnFilter } from '../components/ColumnFilter'
 const Table = () => {
   const columns = useMemo(() => COLUMNS, []) // memorize before adding to useTable hook
   const stateEmployees = useSelector((state) => state.employees.employees)
-  console.log('les employés ajoutés ds le state', stateEmployees)
+  // console.log('les employés ajoutés ds le state', stateEmployees)
 
   const data = useMemo(() => stateEmployees, []) // memorize before adding to useTable hook
   //Code affichage tableau avec la librairie

@@ -34,7 +34,7 @@ const FormLogin = () => {
 
   const login = (e) => {
     e.preventDefault()
-    navigate('/')
+    navigate('/CurrentEmployee')
   }
   const signUp = (e) => {
     e.preventDefault()
