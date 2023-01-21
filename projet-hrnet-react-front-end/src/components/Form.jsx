@@ -22,10 +22,11 @@ import {
 } from '../utils/checkInput'
 import iconeValidation from '../assets/validation.svg'
 /**
- * @fileoverview Renders a form to add new employee
+ * Renders a form to add new employee
  * Form component
- * @function
- * Handle the form to create a new employee
+ * @component
+ * @description Handle the form to create a new employee
+ * @returns {JSX.Element} Form component
  */
 
 const Form = () => {

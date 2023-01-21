@@ -10,11 +10,12 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 
-/** 
-    @fileoverview  Current Employees Page Component
-    CurrentEmployees component
-    @description The page displays current employees in a table
-*/
+/**
+ * Current Employees Page Component
+ * CurrentEmployees component
+ * @description The page displays current employees in a table
+ * @returns {JSX.Element} CurrentEmployees component
+ */
 
 const CurrentEmployee = () => {
   const isLoading = useSelector((state) => state.employees.isLoading)

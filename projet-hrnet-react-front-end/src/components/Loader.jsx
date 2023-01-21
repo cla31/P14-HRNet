@@ -2,10 +2,12 @@ import React from 'react'
 import '../style/components/loader.css'
 
 /**
-    @fileoverview Loader component of the application
-    Loader component
-    @description This component displays a loading animation while data is being retrieved or processed.
-*/
+ * Loader component of the application
+ * Loader component
+ * @component
+ * @description This component displays a loading animation while data is being retrieved or processed.
+ * @returns {JSX.Element} Loader component
+ */
 
 const Loader = () => {
   return (

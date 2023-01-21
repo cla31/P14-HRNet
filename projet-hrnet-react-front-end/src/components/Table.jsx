@@ -16,10 +16,11 @@ import { ColumnFilter } from '../components/ColumnFilter'
 //https://date-fns.org/docs/Getting-Started#installation
 
 /**
-
-    @fileoverview Table component of the application
-    Table component
-    @description This component displays a table of employees data and allows for sorting, filtering, and pagination of the data.
+ * Table component of the application
+ * Table component
+ * @component
+ * @description This component displays a table of employees data and allows for sorting, filtering, and pagination of the data.
+ * @returns {JSX.Element} Table component
  */
 
 const Table = () => {

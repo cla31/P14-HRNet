@@ -4,13 +4,12 @@ import { createSlice } from '@reduxjs/toolkit'
 import { configureStore } from "@reduxjs/toolkit"
 
 /**
-    @file Redux store for employees management
-    @see {@link getDatasEmployees}
-    @see {@link createAsyncThunk}
-    @see {@link createSlice}
-    @see {@link configureStore}
-*/
-
+ * @file Redux store for employees management
+ * @see {@link getDatasEmployees}
+ * @see {@link createAsyncThunk}
+ * @see {@link createSlice}
+ * @see {@link configureStore}
+ */
 
 
 export const getEmployees = createAsyncThunk('employees/getEmployees', async(thunkAPI) => {

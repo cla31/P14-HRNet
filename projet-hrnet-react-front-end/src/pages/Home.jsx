@@ -4,9 +4,10 @@ import '../style/pages/Home.css'
 import logo from '../assets/logo.png'
 
 /**
-    @fileoverview Home page component
-    Home component
-    @description This component displays a form and calls a list of employees
+ * Home page component
+ * Home component
+ * @description This component displays a form and calls a list of employees
+ * @returns {JSX.Element} Home component
  */
 
 const Home = () => {

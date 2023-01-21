@@ -7,11 +7,11 @@ import { Provider } from 'react-redux'
 import { store } from './redux/employees.slice.js'
 import './App.css'
 import Header from './components/Header'
-/**
-    @file Main component of the application
-    @function App
-*/
 
+/**
+ * Creation of pages routes.
+ * @returns {JSX.Element} App component
+ */
 const App = () => {
   return (
     <Provider store={store}>

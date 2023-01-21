@@ -1,8 +1,8 @@
 import { format } from "date-fns"
 
 /**
-    @file Columns configuration for the table
-*/
+ * @file Columns configuration for the table 
+ */
 export const COLUMNS = [{
         Header: 'First Name',
         accessor: 'firstName',

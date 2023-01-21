@@ -11,10 +11,11 @@ import { Modal } from 'modal-lib-claire-marie'
 import iconeValidation from '../assets/validationSignUp.svg'
 
 /**
- * @fileoverview Renders a form to login and sign up
+ * Renders a form to login and sign up
  * FormLogin component
- * @function
- * Handle the form to login and sign up
+ * @component
+ * @description Handle the form to login and sign up
+ * @returns {JSX.Element} FormLogin component
  */
 
 const FormLogin = () => {

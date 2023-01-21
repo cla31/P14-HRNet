@@ -3,13 +3,15 @@ import '../style/components/dropdown.css'
 import PropTypes from 'prop-types'
 
 /**
- * @fileoverview Renders a dropdown menu with options
+ * Renders a dropdown menu with options
  * Dropdown component
- * @function
+ * @component
+ * @description this component allows you to create a menu with options
  * @param {Object} props - React props
  * @param {Array} props.datas - Array of options for the dropdown
  * @param {Function} props.listenOption - Function to handle option selection
  * @param {string} props.colorDropdownSelect -  color of the selected option.
+ * @returns {JSX.Element} Dropdown component
  */
 
 const Dropdown = ({ datas, listenOption, colorDropdownSelect }) => {

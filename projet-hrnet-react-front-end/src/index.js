@@ -4,9 +4,10 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 /**
-  @file Entry point of the application
-  @function index.js
-*/
+ * @file root folder of the application.
+ * @description Entry point of the application
+ * @see <a href="https://github.com/cla31/P14-HRNet/tree/main/projet-hrnet-react-front-end" target="_blank"> repo Git </a>
+ */
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

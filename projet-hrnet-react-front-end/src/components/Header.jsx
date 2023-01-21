@@ -4,9 +4,11 @@ import '../style/components/header.css'
 import { Link } from 'react-router-dom'
 
 /**
- * @fileoverview Header component of the application
+ * Header component of the application
  * Header component
+ * @component
  * @description This component displays the navigation bar of the application and allows the user to access the login page.
+ * @returns {JSX.Element} Header component
  */
 
 const Header = () => {

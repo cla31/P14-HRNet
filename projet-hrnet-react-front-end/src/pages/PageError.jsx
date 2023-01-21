@@ -2,10 +2,12 @@ import React from 'react'
 import '../style/pages/PageError.css'
 import { Link } from 'react-router-dom'
 import notFound from '../assets/notFound.svg'
+
 /**
-    @fileoverview PageError page component
-     PageError  component
-    @description This component displays an error page
+ * PageError page component
+ * PageError component
+ * @description This component displays an error page
+ * @returns {JSX.Element} PageError component
  */
 const PageError = () => {
   return (

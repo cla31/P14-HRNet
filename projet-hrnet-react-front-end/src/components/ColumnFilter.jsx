@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types'
 /**
- * @fileoverview Renders an input field for filtering columns
+ * Renders an input field for filtering columns
  * ColumnFilter component
- * @function
+ * @component
+ * @description this component allows you to filter all the columns of the table
  * @param {Object} props - React props
  * @param {Object} props.column - Column object
  * @param {string} props.column.filterValue - Current filter value
  * @param {Function} props.column.setFilter - Function to update filter value
+ * @returns {JSX.Element} ColumnFilter component
  */
 export const ColumnFilter = ({ column }) => {
   const { filterValue, setFilter } = column

@@ -1,9 +1,7 @@
 /**
-    @file Service to fetch data from the backend
-    @function getDatasEmployees
-*/
-
-
+ * @file Service to fetch data from the backend
+ * @function getDatasEmployees
+ */
 export const getDatasEmployees = async() => {
     return new Promise(async(resolve) => {
         setTimeout(async() => {

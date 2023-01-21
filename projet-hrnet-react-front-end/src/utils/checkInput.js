@@ -1,14 +1,6 @@
 /**
-@file Form validation functions
-@function checkInputName
-@function validateSelectionState
-@function validateSelectionDepartment
-@function checkCity
-@function checkStreet
-@function checkZipCode
-@function emailChecker
-@function passwordChecker
-*/
+ * @file Form validation functions
+ */
 
 
 

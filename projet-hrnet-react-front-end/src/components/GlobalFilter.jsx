@@ -4,12 +4,13 @@ import '../style/components/globalFilter.css'
 import PropTypes from 'prop-types'
 
 /**
- * @fileoverview Renders a global filter for a table
+ * Renders a global filter for a table
  * GlobalFilter component
- * @function
- * Handle the global filter for a table
+ * @component
+ * @description Handle the global filter for a table
  * @param {string} globalFilter - The current value of the global filter
  * @param {function} setGlobalFilter - The function to update the global filter
+ * @returns {JSX.Element} GlobalFilter component
  */
 
 export const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
